@@ -3,6 +3,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/user/Dashboard';
 import Adashbord from './components/admin/auth/Dashboard'
+import Otp from "./components/auth/Otp";
 const App = () => {
   return (
     <div className="min-h-full h-screen flex items-center justify-center">
@@ -12,6 +13,7 @@ const App = () => {
             <>
               <Routes>             
               <Route path="/" exact  element={<Login/>} />
+              <Route path="/otp" exact  element={<Otp/>} />
               <Route path="/register" exact  element={<Register/>} />
               <Route path="/udashboard" exact  element={<Dashboard/>} /> 
               <Route path="/adashboard" exact  element={<Adashbord/>} /> 
