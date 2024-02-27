@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import DataTable from 'react-data-table-component'; 
+
 
 export default function Dashboard() {
     const [qr, setQr]=useState(["cmpqr","cmpqr"])
@@ -65,7 +65,7 @@ export default function Dashboard() {
                         </li>
                         <li className="rounded-sm">
                             <a
-                                href="#"
+                                href="/nodeview"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
