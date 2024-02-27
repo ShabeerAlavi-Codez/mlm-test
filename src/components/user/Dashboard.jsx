@@ -11,14 +11,16 @@ export default function Dashboard() {
             title: 'Step 1', 
             data: `Please scan the QR and done your first payment and upload the screenshot`, 
             qr:qr[0],
-            isOpen: false
+            isOpen: false,
+            isCount:true
         }, 
         { 
             key: 2, 
             title: 'Step 2', 
             data: `Please scan the QR and done your second payment and upload the screenshot`, 
             qr:qr[1],
-            isOpen: false
+            isOpen: false,
+            isCount:false
         }, ])
 
         const toggleAccordion = (accordionkey) => { 
@@ -41,16 +43,29 @@ export default function Dashboard() {
         </div>
         <Navbar/> 
             <div className="p-2 m-8"> 
-                {accordions.map((accordion) => ( 
-                    <Accordion 
-                        key={accordion.key} 
-                        title={accordion.title} 
-                        data={accordion.data} 
-                        isOpen={accordion.isOpen} 
-                        qr={accordion.qr}
-                        toggleAccordion={() => toggleAccordion(accordion.key)} 
+                
+                <Accordion 
+                        key={accordions[0].key} 
+                        title={accordions[0].title} 
+                        data={accordions[0].data} 
+                        isOpen={accordions[0].isOpen} 
+                        isCount={accordions[0].isCount}
+                        isIfsc={true}
+                        ifsc={"BNKN 0 XXX XXX"}
+                        acNo={"XXXX XXXX XXXX XXXX"}
+                        qr={accordions[0].qr}
+                        toggleAccordion={() => toggleAccordion(accordions[0].key)} 
+                       
                     /> 
-                ))} 
+                <Accordion 
+                        key={accordions[1].key} 
+                        title={accordions[1].title} 
+                        data={accordions[1].data} 
+                        isOpen={accordions[1].isOpen} 
+                        isCount={accordions[1].isCount}
+                        qr={accordions[1].qr}
+                        toggleAccordion={() => toggleAccordion(accordions[1].key)} 
+                    /> 
             </div> 
         
         <p className="text-center text-gray-600 textbase mt-9">
@@ -59,6 +74,9 @@ export default function Dashboard() {
                 our support
             </span> </a>
         </p>
+        <a href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202." class="float" target="_blank">
+            <i class="fa fa-whatsapp my-float"></i>
+        </a>
     </div>
 
     );
