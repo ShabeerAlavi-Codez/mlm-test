@@ -1,6 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
+import { increment } from "../../features/counterSlice";
 
 
 export default function Login() {
+  const count1 = useSelector(state => state.counter.count1)
+  const dispatch= useDispatch();
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
   <div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -12,6 +16,8 @@ export default function Login() {
       <div className="max-w-md mx-auto">
         <div>
           <h1 className="text-2xl font-semibold">Login</h1>
+          <h1>{count1}</h1>
+          <button onClick={()=>dispatch(increment())}>add</button>
         </div>
         <form>
         <div className="divide-y divide-gray-200">
