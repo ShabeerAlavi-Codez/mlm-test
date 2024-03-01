@@ -1,6 +1,7 @@
 
 
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import QRCode from 'react-qr-code';
 
 export default function Accordion(props) { 
 
@@ -16,14 +17,20 @@ export default function Accordion(props) {
         );
       };
 
+      if (props.hide) {
+        return null; // Hide the Accordion if 'hide' prop is true
+    }
+
     return ( 
         <div className="border rounded-md mb-1"> 
             <button 
-                className="w-full p-4 text-left bg-gray-200  
-                           hover:bg-gray-300 transition duration-300"
+                className={`w-full p-4 text-left bg-gray-200  
+                hover:bg-gray-300 transition duration-300 
+                ${props.disabled ? 'text-gray-500' : ''}`}
                 onClick={props.toggleAccordion} 
+                disabled={props.disabled}
             > 
-               <h2 className='text-2xl mb-2 mx-auto text-green-800'>{props.title} </h2>  
+               <h2 className={`text-2xl mb-2 mx-auto  ${props.disabled ? 'text-gray-500' : 'text-green-800 '}`}>{props.title} </h2>  
                 <span className={`float-right transform ${props.isOpen ?  
                                  'rotate-180' : 'rotate-0'}  
                                  transition-transform duration-300`}> 
@@ -33,11 +40,14 @@ export default function Accordion(props) {
             {props.isOpen && ( 
                 <div className="p-4 bg-white"> 
                     {props.data} 
-                    <img src={props.qr}
-							className="mr-2 p-2 border-2 border-red-500"
-                            width={200}
-                            height={200}
-							alt="Logo here" /> 
+                    <QRCode
+                    className="mr-2 p-2 border-2 border-red-500"
+                    size={256}
+                    style={{ height: "155", maxWidth: "200", width: "155" }}
+                    value={"upi://pay?pa=7994465741@axl"}
+                    viewBox={`0 0 256 256`}
+                    />
+                    
 
                     <form>
                        

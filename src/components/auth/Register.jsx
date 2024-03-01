@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { signup } from '../../features/registerSlice'
+
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -6,8 +10,21 @@ export default function Register() {
     mobile: '',
     email: '',
     password: '',
-    cpassword: ''
+    Cpassword: ''
   });
+  
+  const [signupRequestStatus, setSignupRequestStatus] = useState('idle');
+
+  const dispatch = useDispatch()
+
+  // Get the navigate function [replace the history.push() method]
+  const navigate = useNavigate()
+
+   /* 
+    Get the Boolean value based on whether the form is empty or not && the post request status.
+    We use the Boolean value returned to toggle the disbale status submit button
+  */
+    const canSubmit =[formData.name, formData.mobile,formData.password].every(Boolean) && signupRequestStatus === 'idle'
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,8 +34,25 @@ export default function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
+    if (canSubmit) {
+      try {
+        setSignupRequestStatus('pending')
+        await dispatch(signup(formData)).unwrap()
+        setFormData({name: '',
+        mobile: '',
+        email: '',
+        password: '',
+        cpassword: ''})
+
+        navigate('/udashboard')
+      } catch (err) {
+        console.error('Unable to create post:', err)
+      } finally {
+        setSignupRequestStatus('idle')
+      }
+    }
     // Handle form submission
     console.log(formData);
   };
@@ -34,7 +68,8 @@ export default function Register() {
           <div>
             <h1 className="text-2xl font-semibold">Register</h1>
           </div>
-          <form>
+          
+          <form onSubmit={handleSubmit}>
           <div className="divide-y divide-gray-200">
             <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
             <div className="relative">
@@ -58,7 +93,7 @@ export default function Register() {
                 <label htmlFor="Cpassword" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm Password</label>
               </div>
               <div className="relative">
-                <button className="bg-cyan-500 text-white rounded-md px-2 py-1">Submit</button>
+                <button type="submit" disabled={!canSubmit} className="bg-cyan-500 text-white rounded-md px-2 py-1">Submit</button>
               </div>
             </div>
           </div>

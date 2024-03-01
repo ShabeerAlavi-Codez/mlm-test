@@ -19,6 +19,7 @@ export default function Dashboard() {
             title: 'Step 2', 
             data: `Please scan the QR and done your second payment and upload the screenshot`, 
             qr:qr[1],
+
             isOpen: false,
             isCount:false
         }, ])
@@ -56,6 +57,7 @@ export default function Dashboard() {
                         qr={accordions[0].qr}
                         toggleAccordion={() => toggleAccordion(accordions[0].key)} 
                        
+                       
                     /> 
                 <Accordion 
                         key={accordions[1].key} 
@@ -65,6 +67,8 @@ export default function Dashboard() {
                         isCount={accordions[1].isCount}
                         qr={accordions[1].qr}
                         toggleAccordion={() => toggleAccordion(accordions[1].key)} 
+                        hide={true}
+                        disabled={true}
                     /> 
             </div> 
         
