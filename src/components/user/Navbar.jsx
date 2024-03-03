@@ -1,6 +1,22 @@
 // Navbar.js 
+import { useDispatch } from 'react-redux'; // Import for dispatching actions
+import { useNavigate } from 'react-router-dom'; // Import for navigation
+import { signout } from '../../features/registerSlice'; 
 
 export default function Navbar() { 
+	const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  
+  const handleLogout = async () => {
+    try {
+      await dispatch(signout()); // Dispatch the signout action
+      navigate('/'); // Navigate to the login route after successful logout
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle errors here (optional: display error message to user)
+    }
+  };
 	return ( 
 		<div> 
 			<nav className="bg-white fixed w-full 
@@ -48,14 +64,9 @@ export default function Navbar() {
 								</a> 
 							</li> 
 							<li> 
-								<a href="#"
-								className="block py-2 pl-3 
-											pr-4 text-gray-900 rounded 
-											hover:bg-gray-100 
-											md:hover:bg-transparent 
-											md:hover:text-blue-700 md:p-0"> 
-									Logout
-								</a> 
+							<button onClick={handleLogout} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">
+								Logout
+							</button>
 							</li> 
 						</ul> 
 					</div> 

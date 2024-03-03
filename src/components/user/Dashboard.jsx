@@ -2,24 +2,28 @@
 import Accordion from './Accordion'; 
 import { useState } from 'react'; 
 import Navbar from './Navbar'; 
-import cmpqr from '../../assets/cmpqr.png';
+import { useDispatch,useSelector } from 'react-redux';
+
 export default function Dashboard() {
-    const [qr, setQr]=useState([cmpqr,cmpqr])
+    const {userId,name,mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
+    const [cmpQr, setCmpQr]=useState('')
+    const [qr, setQr]=useState('')
+    // const {name,email,mobile,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
+    // const dispatch= useDispatch();
     const [accordions, setAccordion] = useState([ 
         { 
             key: 1, 
             title: 'Step 1', 
             data: `Please scan the QR and done your first payment and upload the screenshot`, 
-            qr:qr[0],
-            isOpen: false,
+            qr:cmpQr,
+            isOpen: true,
             isCount:true
         }, 
         { 
             key: 2, 
             title: 'Step 2', 
             data: `Please scan the QR and done your second payment and upload the screenshot`, 
-            qr:qr[1],
-
+            qr:qr,
             isOpen: false,
             isCount:false
         }, ])
@@ -56,10 +60,11 @@ export default function Dashboard() {
                         acNo={"XXXX XXXX XXXX XXXX"}
                         qr={accordions[0].qr}
                         toggleAccordion={() => toggleAccordion(accordions[0].key)} 
+                        name={name}
                        
                        
                     /> 
-                <Accordion 
+                {/* <Accordion 
                         key={accordions[1].key} 
                         title={accordions[1].title} 
                         data={accordions[1].data} 
@@ -67,13 +72,11 @@ export default function Dashboard() {
                         isCount={accordions[1].isCount}
                         qr={accordions[1].qr}
                         toggleAccordion={() => toggleAccordion(accordions[1].key)} 
-                        hide={true}
-                        disabled={true}
-                    /> 
+                    />  */}
             </div> 
         
         <p className="text-center text-gray-600 textbase mt-9">
-            Still have questions?
+            Still have questions? 
            <a href='/adashboard' ><span className="cursor-pointer font-medium text-tertiary transition-all duration-200 hover:text-tertiary focus:text-tertiary hover-underline">Contact
                 our support
             </span> </a>

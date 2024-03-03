@@ -1,0 +1,91 @@
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
+import { BASE_URI} from '../../config/keys-dev';
+
+const initialState ={
+  userId:"",
+  ref_upiId:"1",
+  isMaturedNode:false,
+  maturedNode:[],
+  name:"",
+  mobile:"",
+  nodeId:0,
+  ref_node:"",
+  ref_node_code:0,
+}
+
+// Handle POST request to create a new account
+export const addNode = createAsyncThunk(
+    // The name of the action
+    'nodelist/addNode',
+    // The payload creator
+    async (initialData, thunkAPI) => {
+      try {
+        console.log("nodelist/addNode",initialData)
+        //const res = await axios.post(url, initialData)
+        const res = await axios.post(`${BASE_URI}api/users/addnode`, initialData)
+        console.log("+++++++++++++++++++axiiiiiios")
+        console.log(res,"axiiiiiios")
+        console.log("-----------------axiiiiiios")
+        console.log("++++++++daa+++++++++++axiiiiiios")
+        console.log(res.data,"axiiiiiios")
+        console.log("---------data--------axiiiiiios")
+        return res.data
+      } catch (err) {
+        return thunkAPI.rejectWithValue({ error: err.message })
+      }
+    }
+  )
+
+  export const signin = createAsyncThunk(
+    'nodelist/signin',
+    async (initialData, thunkAPI) => {
+      try {
+        //const res = await axios.post(url, initialData)
+        const res = await axios.post(`${BASE_URI}api/users/login`, initialData)
+        console.log(res,"axiiiiiios")
+        //data axios, backend 2 data
+        return res.data.data.data
+      } catch (err) {
+        console.log(err,"errrxxx,,,,axiiiiiios")
+        return thunkAPI.rejectWithValue(err)
+      }
+    }
+  )
+
+const nodelistSlice =createSlice({
+    name:"nodelist",
+    initialState,
+    reducer:{},// Add reducers for the synchronous actions on the UI[we are not using this property for this tutorial]
+    // extraReducers:{
+    //     [signup.fulfilled]: (state, action) => {
+    //         // Add the new post created on the UI to the existing posts
+    //         state.name=action.payload.name,
+    //         state.mobile=action.payload.mobile,
+    //         state.email=action.payload.email
+    //     },   
+    // },
+    extraReducers: (builder) => {
+        builder.addCase(addNode.fulfilled, (state, action) => {
+            state.name=action.payload.name,
+            state.mobile=action.payload.mobile,
+            state.ref_upiId=action.payload.ref_upiId,
+            state.isMaturedNode=action.payload.isMaturedNode,
+            state.maturedNode=action.payload.maturedNode,
+            state.nodeId=action.payload.nodeId,
+            state.ref_node=action.payload.ref_node,
+            state.ref_node_code=action.payload.ref_node_code,
+            state.ref_upiId=action.payload.ref_upiId
+        })
+        // .addCase(signin.fulfilled,(state,action)=> {
+        //     state.name=action.payload.name,
+        //     state.mobile=action.payload.mobile,
+        //     state.email=action.payload.email,
+        //     state.firstPaymentStatus=action.payload.firstPaymentStatus,
+        //     state.secondPaymentStatus=action.payload.secondPaymentStatus,
+        //     state.bankDetailsStatus=action.payload.bankDetailsStatus
+        // })
+       
+      },
+})
+export default nodelistSlice.reducer

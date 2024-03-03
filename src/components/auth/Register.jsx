@@ -39,6 +39,7 @@ export default function Register() {
     if (canSubmit) {
       try {
         setSignupRequestStatus('pending')
+        
         await dispatch(signup(formData)).unwrap()
         setFormData({name: '',
         mobile: '',
@@ -102,7 +103,7 @@ export default function Register() {
   
         <div className="w-full flex justify-center">
           
-          <a className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="/udashboard">Dashboard</a>
+          {/* <a className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="/udashboard">Dashboard</a> */}
           {/* <a className="text-indigo-700 hover:text-pink-700 text-sm float-left" href="#">Forgot Password?</a><br></br> */}
   
         </div>

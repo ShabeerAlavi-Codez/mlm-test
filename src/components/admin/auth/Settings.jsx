@@ -1,38 +1,10 @@
+import { useState } from "react"
 
-import { useState } from 'react';
+export default function Settings() {
 
+    const [cmpUpiId,setCmpUpiId]=useState('');
 
-export default function Dashboard() {
-    const [qr, setQr]=useState(["",""])
-    const [accordions, setAccordion] = useState([ 
-        { 
-            key: 1, 
-            title: 'Step 1', 
-            data: `Please scan the QR and done your first payment and upload the screenshot`, 
-            qr:qr[0],
-            isOpen: false
-        }, 
-        { 
-            key: 2, 
-            title: 'Step 2', 
-            data: `Please scan the QR and done your second payment and upload the screenshot`, 
-            qr:qr[1],
-            isOpen: false
-        }, ])
-
-        const toggleAccordion = (accordionkey) => { 
-            const updatedAccordions = accordions.map((accord) => { 
-                if (accord.key === accordionkey) { 
-                    return { ...accord, isOpen: !accord.isOpen }; 
-                } else { 
-                    return { ...accord, isOpen: false }; 
-                } 
-            }); 
-      
-            setAccordion(updatedAccordions); 
-        }; 
     return (
-
         <div className="flex">
         <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
             <div className="space-y-3">
@@ -43,7 +15,7 @@ export default function Dashboard() {
                     <ul className="pt-2 pb-4 space-y-1 text-sm">
                         <li className="rounded-sm">
                             <a
-                                href="#"
+                                href="/adashboard"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -135,7 +107,7 @@ export default function Dashboard() {
                         </li>
                         <li className="rounded-sm">
                             <a
-                                href="/settings"
+                                href="#"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -187,53 +159,14 @@ export default function Dashboard() {
             </div>
         </div>
         <div className="container mx-auto mt-12">
-            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Total users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                        120
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        New joining
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-blue-900">
-                        5
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Pending approval
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-green-900">
-                        20
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Active Users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                        20
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Inactive Users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-red-900">
-                        100
-                    </div>
-                </div>
+            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-1">
+            <div className="relative p-4s">
+               <input autoComplete="off" id="email" value={cmpUpiId}   name="UpiId" type="text" className="peer placeholder-transparent h-10 w-65 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="" /> 
+              <label htmlFor="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Company UpiId</label>
+            </div>
             </div>
         </div>
     </div>
-
-         
-
-    );
-  }
-  
+    
+    )
+    }
