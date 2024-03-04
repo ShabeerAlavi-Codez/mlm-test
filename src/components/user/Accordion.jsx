@@ -3,14 +3,40 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import QRCode from 'react-qr-code';
 import { useDispatch,useSelector } from 'react-redux';
+import { useState,useEffect } from 'react'; 
 import { addNode } from "../../features/nodelistSlice";
 import {getUser } from "../../features/registerSlice";
+import { BASE_URI} from '../../../config/keys-dev';
 
 
 export default function Accordion(props) { 
      const dispatch=useDispatch();
+     const [apidata, setData] = useState(null);
+     const [error,setError]=useState(null);
+     const [isLoading, setIsLoading] = useState(false);
+     const [qr, setQr]=useState('')
+     const [upiId,setUpiId]=useState('');
 
-     const {userId,name,mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus,ref_upiId} = useSelector(state => state.register)
+     useEffect(() => {
+        const fetchData = async () => {
+          setIsLoading(true); // Set loading state to true
+          try {
+            const response = await fetch(`${BASE_URI}api/admin/cmp`);
+            const fetchedData = await response.json();
+            console.log("333fetchedData3333##",fetchedData.data);
+            setData(fetchedData.data);
+            setQr(fetchedData.data[0].UpiId)
+          } catch (error) {
+            console.error('Error fetching data:', error); // Handle errors gracefully
+          } finally {
+            setIsLoading(false); // Set loading state to false after fetch (optional)
+          }
+        };
+    
+        fetchData(); // Call the fetch function on component mount
+      }, []); 
+
+     const {userId,name,mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus,ref_upiId,ref_node} = useSelector(state => state.register)
     // const{ref_upiId,isMaturedNode,maturedNode,nodeId,ref_node,ref_node_code}=useSelector(state=>state.nodelist)
      //let nodelist=useSelector(state=>state.nodelist);
       // Use ref_node here (e.g., conditional rendering)
@@ -20,6 +46,9 @@ export default function Accordion(props) {
         //     ref_upiId='3';
         // }
 
+        const onchangeUpi=(e)=>{
+            setUpiId(e.target.value)
+          }
     const renderTime = ({ remainingTime }) => {
         if (remainingTime === 0) {
           return <div className="timer">Too lale...</div>;
@@ -39,13 +68,21 @@ export default function Accordion(props) {
         let formData={
             userId:userId,
             name:name,
-            mobile:mobile
+            mobile:mobile,
+            upiId:upiId
         }
         console.log("hann",e,"jjjdata",formData)
           e.preventDefault();
+          
             try {
-              await dispatch(addNode(formData)).unwrap()
-              await dispatch(getUser(formData.userId))
+                if(upiId=='' || formData.userId ==''){
+                    setError("session expired !!! pls try logout and relogin!!!");
+                    return  
+                }else{
+                    await dispatch(addNode(formData)).unwrap()
+                    await dispatch(getUser(formData.userId))
+                }
+             
             //   navigate('/udashboard')
             } catch (err) {
               //setSigninRequestStatus('idle')
@@ -55,6 +92,7 @@ export default function Accordion(props) {
           console.log(formData);
         };
 
+       
     return ( 
         <>
         {!firstPaymentStatus?(
@@ -80,7 +118,7 @@ export default function Accordion(props) {
                     className="mr-2 p-2 border-2 border-red-500"
                     size={256}
                     style={{ height: "155", maxWidth: "200", width: "155" }}
-                    value={"upi://pay?pa=7994465741@axl"}
+                    value={`upi://pay?pa=${qr}`}
                     viewBox={`0 0 256 256`}
                     />
                     
@@ -104,6 +142,20 @@ export default function Accordion(props) {
                                 value={props.acNo}
                                 className="mx-2" />
                             </div>
+                            {error && (<div style={{display:"flex"}}>
+                            <p className="error"><strong>{error}</strong></p> </div>)}
+                            <div style={{display:"flex"}}>
+                                <label>Enter your UpiId :</label>
+                                <input
+                                type="text" 
+                                value={upiId}
+                                onChange={onchangeUpi}
+                                placeholder="Enter your UpiId eg:a@okaxix"
+                                className="mx-2"
+                                required />
+                            </div>
+
+
                         
                         </div>
                         : ''}
@@ -122,12 +174,14 @@ export default function Accordion(props) {
                        
 
                         </div>
+
                         <label
                         for="form"
                         className="mb-2 inline-block text-neutral-700 dark:text-neutral-200">
                         Upload the screenshot</label> 
                        
                         <div style={{display:"flex"}}>
+                 
                         <input
                          type="file" 
                          accept="image/*"
@@ -192,6 +246,7 @@ export default function Accordion(props) {
                     />
                     
                     <p>user name:{props.name} </p>
+                    <p><span style={{color:"green"}}>{ref_node} </span>'s UPI Id (refferal):-  <span style={{color:"red"}}>{ref_upiId}</span></p>
 
                     <form onSubmit={handlUpload}>
                        
@@ -209,7 +264,8 @@ export default function Accordion(props) {
                                 <input
                                 type="text" 
                                 value={props.acNo}
-                                className="mx-2" />
+                                className="mx-2" 
+                                required/>
                             </div>
                         
                         </div>

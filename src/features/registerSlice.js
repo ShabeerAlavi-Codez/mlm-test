@@ -12,6 +12,7 @@ const initialState ={
     secondPaymentStatus:false,
     bankDetailsStatus:false,
     ref_upiId:'1',
+    ref_node:"a",
     status: 'idle',
     error: null
 }
@@ -117,7 +118,8 @@ const registerSlice =createSlice({
           state.firstPaymentStatus=action.payload.firstPaymentStatus,
           state.secondPaymentStatus=action.payload.secondPaymentStatus,
           state.bankDetailsStatus=action.payload.bankDetailsStatus,
-          state.ref_upiId=action.payload.ref_upiId
+          state.ref_upiId=action.payload.ref_upiId,
+          state.ref_node=action.payload.ref_node
       })
        
       },

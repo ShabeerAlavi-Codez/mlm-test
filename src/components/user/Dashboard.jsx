@@ -1,15 +1,19 @@
 
 import Accordion from './Accordion'; 
-import { useState } from 'react'; 
+import { useState,useEffect } from 'react'; 
 import Navbar from './Navbar'; 
 import { useDispatch,useSelector } from 'react-redux';
+import { BASE_URI} from '../../../config/keys-dev';
 
 export default function Dashboard() {
     const {userId,name,mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
     const [cmpQr, setCmpQr]=useState('')
-    const [qr, setQr]=useState('')
+    
     // const {name,email,mobile,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
     // const dispatch= useDispatch();
+ 
+  
+
     const [accordions, setAccordion] = useState([ 
         { 
             key: 1, 
@@ -23,7 +27,7 @@ export default function Dashboard() {
             key: 2, 
             title: 'Step 2', 
             data: `Please scan the QR and done your second payment and upload the screenshot`, 
-            qr:qr,
+            qr:cmpQr,
             isOpen: false,
             isCount:false
         }, ])
@@ -58,7 +62,7 @@ export default function Dashboard() {
                         isIfsc={true}
                         ifsc={"BNKN 0 XXX XXX"}
                         acNo={"XXXX XXXX XXXX XXXX"}
-                        qr={accordions[0].qr}
+                        // qr={accordions[0].qr}
                         toggleAccordion={() => toggleAccordion(accordions[0].key)} 
                         name={name}
                        

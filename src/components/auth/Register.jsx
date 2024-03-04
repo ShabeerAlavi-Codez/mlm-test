@@ -47,7 +47,7 @@ export default function Register() {
         password: '',
         cpassword: ''})
 
-        navigate('/udashboard')
+        navigate('/')
       } catch (err) {
         console.error('Unable to create post:', err)
       } finally {

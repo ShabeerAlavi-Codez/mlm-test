@@ -3,34 +3,9 @@ import { useState } from 'react';
 
 
 export default function Dashboard() {
-    const [qr, setQr]=useState(["",""])
-    const [accordions, setAccordion] = useState([ 
-        { 
-            key: 1, 
-            title: 'Step 1', 
-            data: `Please scan the QR and done your first payment and upload the screenshot`, 
-            qr:qr[0],
-            isOpen: false
-        }, 
-        { 
-            key: 2, 
-            title: 'Step 2', 
-            data: `Please scan the QR and done your second payment and upload the screenshot`, 
-            qr:qr[1],
-            isOpen: false
-        }, ])
 
-        const toggleAccordion = (accordionkey) => { 
-            const updatedAccordions = accordions.map((accord) => { 
-                if (accord.key === accordionkey) { 
-                    return { ...accord, isOpen: !accord.isOpen }; 
-                } else { 
-                    return { ...accord, isOpen: false }; 
-                } 
-            }); 
-      
-            setAccordion(updatedAccordions); 
-        }; 
+
+     
     return (
 
         <div className="flex">

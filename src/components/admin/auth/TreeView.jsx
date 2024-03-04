@@ -1,12 +1,34 @@
+import { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component'; 
+import { BASE_URI} from '../../../../config/keys-dev';
 
 
 
 export default function TreeView() {
+    const [apidata, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 // const expandableRows= true;
 // const	expandOnRowClicked=false;
 // const	expandOnRowDoubleClicked=false;
 // const	expandableRowsHideExpander= false;
+
+useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true); // Set loading state to true
+      try {
+        const response = await fetch(`${BASE_URI}api/admin/nl`);
+        const fetchedData = await response.json();
+        console.log("333fetchedData3333##",fetchedData.data);
+        setData(fetchedData.data);
+      } catch (error) {
+        console.error('Error fetching data:', error); // Handle errors gracefully
+      } finally {
+        setIsLoading(false); // Set loading state to false after fetch (optional)
+      }
+    };
+
+    fetchData(); // Call the fetch function on component mount
+  }, []); 
     
     const columns = [
         {
@@ -64,7 +86,7 @@ export default function TreeView() {
         },
 
     ]
-    const ExpandedComponent = ( {data} ) => <pre>{JSON.stringify(data, null, 2)}</pre>;
+    const ExpandedComponent = ( apidata ) => <pre>{JSON.stringify(apidata.data, null, 2)}</pre>;
  
 
 
@@ -171,7 +193,7 @@ export default function TreeView() {
                         </li>
                         <li className="rounded-sm">
                             <a
-                                href="#"
+                                href="/settings"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -224,17 +246,22 @@ export default function TreeView() {
         </div>
         <div className="container mx-auto mt-12">
             <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-1">
-            <DataTable
-                // title="Node List"
-                columns={columns}
-                data={data}
-                expandableRows={true}
-                expandableRowsComponent={ExpandedComponent}
-                expandOnRowClicked={true}
-                // expandOnRowDoubleClicked={expandOnRowDoubleClicked}
-                // expandableRowsHideExpander={expandableRowsHideExpander}
-                pagination
-            />
+                
+            {isLoading && <p>Loading data...</p>}
+                {apidata && (
+                    <DataTable
+                    // title="Node List"
+                    columns={columns}
+                    data={apidata}
+                    expandableRows={true}
+                    expandableRowsComponent={ExpandedComponent}
+                    expandOnRowClicked={true}
+                    // expandOnRowDoubleClicked={expandOnRowDoubleClicked}
+                    // expandableRowsHideExpander={expandableRowsHideExpander}
+                    pagination
+                />
+                )}
+                {!isLoading && !apidata && <p>No data available yet.</p>}
             </div>
         </div>
     </div>
