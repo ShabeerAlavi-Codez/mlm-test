@@ -68,6 +68,10 @@ export const signup = createAsyncThunk(
   export const signout = createAsyncThunk(
     'register/signout',
     async () => {
+      localStorage.removeItem("token")
+      localStorage.removeItem('_i')
+      localStorage.removeItem('_n')
+      localStorage.removeItem('_e')
       return null;  // Indicate successful logout (you can return any data here)
     }
   )

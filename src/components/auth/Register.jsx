@@ -2,9 +2,12 @@ import { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../../features/registerSlice'
+import Progress from "../common/Progress";
 
 
 export default function Register() {
+  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
@@ -13,7 +16,7 @@ export default function Register() {
     Cpassword: ''
   });
   
-  const [signupRequestStatus, setSignupRequestStatus] = useState('idle');
+  const [signupRequestStatus , setSignupRequestStatus] = useState('idle');
 
   const dispatch = useDispatch()
 
@@ -34,27 +37,30 @@ export default function Register() {
     }));
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
+    setIsLoading(true);
     if (canSubmit) {
       try {
-        setSignupRequestStatus('pending')
-        
-        await dispatch(signup(formData)).unwrap()
-        setFormData({name: '',
-        mobile: '',
-        email: '',
-        password: '',
-        cpassword: ''})
-
-        navigate('/')
+        setSignupRequestStatus('pending');
+          await dispatch(signup(formData)).unwrap();
+          setFormData({
+            name: '',
+            mobile: '',
+            email: '',
+            password: '',
+            cpassword: ''
+          });
+        navigate('/');
       } catch (err) {
-        console.error('Unable to create post:', err)
+        console.error('Unable to create post:', err);
       } finally {
-        setSignupRequestStatus('idle')
+        setSignupRequestStatus('idle');
+        setIsLoading(false); // Reset loading state
+        setLoading(false)
       }
     }
-    // Handle form submission
     console.log(formData);
   };
     return (
@@ -69,6 +75,7 @@ export default function Register() {
           <div>
             <h1 className="text-2xl font-semibold">Register</h1>
           </div>
+          {loading && <Progress />}
           
           <form onSubmit={handleSubmit}>
           <div className="divide-y divide-gray-200">
@@ -94,7 +101,8 @@ export default function Register() {
                 <label htmlFor="Cpassword" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm Password</label>
               </div>
               <div className="relative">
-                <button type="submit" disabled={!canSubmit} className="bg-cyan-500 text-white rounded-md px-2 py-1">Submit</button>
+                <button type="submit" disabled={!canSubmit} className="bg-cyan-500 text-white rounded-md px-2 py-1">
+                {isLoading ? 'Processing...' : 'Submit'}</button>
               </div>
             </div>
           </div>

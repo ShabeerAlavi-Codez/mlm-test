@@ -16,6 +16,7 @@ export default function Accordion(props) {
      const [isLoading, setIsLoading] = useState(false);
      const [qr, setQr]=useState('')
      const [upiId,setUpiId]=useState('');
+     const [ canSubmit1,setCansubmit1]= useState(false);
 
      useEffect(() => {
         const fetchData = async () => {
@@ -66,21 +67,30 @@ export default function Accordion(props) {
     }
     const handlUpload= async (e) => {
         let formData={
-            userId:userId,
+            userId:props.userId,
             name:name,
             mobile:mobile,
             upiId:upiId
         }
         console.log("hann",e,"jjjdata",formData)
           e.preventDefault();
-          
             try {
                 if(upiId=='' || formData.userId ==''){
                     setError("session expired !!! pls try logout and relogin!!!");
                     return  
                 }else{
-                    await dispatch(addNode(formData)).unwrap()
-                    await dispatch(getUser(formData.userId))
+                   
+                    try {
+                        setIsLoading(true);
+                        setCansubmit1(true)
+                        await dispatch(addNode(formData)).unwrap()
+                        await dispatch(getUser(formData.userId))
+                      } catch (err) {
+                        console.error('Unable to create post:', err);
+                      } finally {
+                        setIsLoading(false); // Reset loading state
+                      }
+                   
                 }
              
             //   navigate('/udashboard')
@@ -187,8 +197,8 @@ export default function Accordion(props) {
                          accept="image/*"
                          className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" />
                          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          type="submit" >
-                            upload
+                          type="submit" disabled={canSubmit1} >
+                            {isLoading ? 'Processing...' : 'Upload'}
                         </button>
                         </div>
                         
@@ -295,10 +305,9 @@ export default function Accordion(props) {
                          type="file" 
                          accept="image/*"
                          className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" />
-                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          type="submit" >
+                         <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
                             upload
-                        </button>
+                        </span> 
                         </div>
                         
                     </form>

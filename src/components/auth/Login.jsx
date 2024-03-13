@@ -8,6 +8,8 @@ import { signin } from "../../features/registerSlice";
 export default function Login() {
   // const count1 = useSelector(state => state.counter.count1)
   // const dispatch= useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -28,11 +30,17 @@ export default function Login() {
     console.log("hann",e,"jjjdata",formData)
       e.preventDefault();
         try {
+           setIsLoading(true)
           setSigninRequestStatus('pending')
           const response = await dispatch(signin(formData)).unwrap();
           setFormData({
           email: '',
           password: ''})
+          console.log(response.token,"resppppp")
+          localStorage.setItem("token",response.token)
+          localStorage.setItem('_i',response.data._id)
+          localStorage.setItem('_n',response.data.name)
+          localStorage.setItem('_e',response.data.email)
            navigate('/udashboard')
         } catch (err) {
           //setSigninRequestStatus('idle')
@@ -40,9 +48,8 @@ export default function Login() {
           setErrormsg(err.response.data.errors)
         } finally {
           setSigninRequestStatus('idle')
+          setIsLoading(false)
         }
-      // Handle form submission
-      console.log(formData);
     };
 
   
@@ -73,7 +80,7 @@ export default function Login() {
               <label htmlFor="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
             </div>
             <div className="relative">
-              <button type="submit" className="bg-cyan-500 text-white rounded-md px-2 py-1">Submit</button>
+              <button type="submit" className="bg-cyan-500 text-white rounded-md px-2 py-1">{isLoading ? 'Processing...' : 'Submit'}</button>
             </div>
           </div>
         </div>

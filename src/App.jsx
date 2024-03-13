@@ -6,6 +6,7 @@ import Adashbord from './components/admin/auth/Dashboard'
 import Otp from "./components/auth/Otp";
 import TreeView from "./components/admin/auth/TreeView";
 import Settings from "./components/admin/auth/Settings";
+// import PrivateRoute from "./components/auth/PrivateRoute";
 const App = () => {
   return (
     <div className="min-h-full h-screen flex items-center justify-center">
@@ -14,13 +15,13 @@ const App = () => {
         <Router >
             <>
               <Routes>             
-              <Route path="/" exact  element={<Login/>} />
-              <Route path="/otp" exact  element={<Otp/>} />
-              <Route path="/register" exact  element={<Register/>} />
-              <Route path="/udashboard" exact  element={<Dashboard/>} /> 
-              <Route path="/adashboard" exact  element={<Adashbord/>} /> 
-              <Route path="/nodeview" exact  element={<TreeView/>} /> 
-              <Route path="/settings" exact  element={<Settings/>} /> 
+                <Route path="/" exact  element={<Login/>} />
+                  <Route path="/otp" exact  element={<Otp/>} />
+                  <Route path="/register" exact  element={<Register/>} />
+                  <Route path="/udashboard" exact   element={<Dashboard />} />
+                  <Route path="/adashboard" exact  element={<Adashbord/>} /> 
+                  <Route path="/nodeview" exact  element={<TreeView/>} /> 
+                  <Route path="/settings" exact  element={<Settings/>} /> 
               </Routes>
             </>
         </Router>

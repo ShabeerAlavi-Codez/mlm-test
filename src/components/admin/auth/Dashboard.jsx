@@ -1,10 +1,24 @@
 
 import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+// import { increment } from "../../features/counterSlice";
+import { useNavigate } from 'react-router-dom'
+import { signout } from '../../../features/registerSlice'; 
 
 
 export default function Dashboard() {
 
-
+    const navigate=useNavigate();
+    const dispatch=useDispatch();
+    const handleLogout = async () => {
+        try {
+          await dispatch(signout()); // Dispatch the signout action
+          navigate('/'); // Navigate to the login route after successful logout
+        } catch (error) {
+          console.error('Error during logout:', error);
+          // Handle errors here (optional: display error message to user)
+        }
+      };
      
     return (
 
@@ -136,8 +150,8 @@ export default function Dashboard() {
                             </a>
                         </li>
                         <li className="rounded-sm">
-                            <a
-                                href="#"
+                            <button
+                                onClick={handleLogout}
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -155,7 +169,7 @@ export default function Dashboard() {
                                     />
                                 </svg>
                                 <span className="text-gray-100">Logout</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>

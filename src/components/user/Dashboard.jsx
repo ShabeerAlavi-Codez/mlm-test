@@ -6,12 +6,17 @@ import { useDispatch,useSelector } from 'react-redux';
 import { BASE_URI} from '../../../config/keys-dev';
 
 export default function Dashboard() {
-    const {userId,name,mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
+    const [name,setName]=useState('');
+    const [userId,setUserId]=useState('');
+    const {mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
     const [cmpQr, setCmpQr]=useState('')
     
     // const {name,email,mobile,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
     // const dispatch= useDispatch();
- 
+    useEffect(() => {
+       setName( localStorage.getItem("_n"))
+       setUserId(localStorage.getItem("_i"))
+      }, [])
   
 
     const [accordions, setAccordion] = useState([ 
@@ -43,6 +48,7 @@ export default function Dashboard() {
       
             setAccordion(updatedAccordions); 
         }; 
+        
     return (
 
     <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
@@ -65,6 +71,7 @@ export default function Dashboard() {
                         // qr={accordions[0].qr}
                         toggleAccordion={() => toggleAccordion(accordions[0].key)} 
                         name={name}
+                        userId={userId}
                        
                        
                     /> 
