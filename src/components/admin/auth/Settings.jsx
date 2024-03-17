@@ -13,7 +13,7 @@ export default function Settings() {
           try {
             const response = await fetch(`${BASE_URI}api/admin/cmp`);
             const fetchedData = await response.json();
-            console.log("333fetchedData3333##",fetchedData.data);
+           // console.log("333fetchedData3333##",fetchedData.data);
             setData(fetchedData.data);
             setCmpUpiId(fetchedData.data[0].UpiId)
           } catch (error) {

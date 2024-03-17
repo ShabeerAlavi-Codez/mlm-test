@@ -8,7 +8,8 @@ import { BASE_URI} from '../../../config/keys-dev';
 export default function Dashboard() {
     const [name,setName]=useState('');
     const [userId,setUserId]=useState('');
-    const {mobile,email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
+    const [mobile,setMobile]=useState('');
+    const {email,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
     const [cmpQr, setCmpQr]=useState('')
     
     // const {name,email,mobile,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus} = useSelector(state => state.register)
@@ -16,6 +17,7 @@ export default function Dashboard() {
     useEffect(() => {
        setName( localStorage.getItem("_n"))
        setUserId(localStorage.getItem("_i"))
+       setMobile(localStorage.getItem("_m"))
       }, [])
   
 
@@ -72,6 +74,7 @@ export default function Dashboard() {
                         toggleAccordion={() => toggleAccordion(accordions[0].key)} 
                         name={name}
                         userId={userId}
+                        mobile={mobile}
                        
                        
                     /> 

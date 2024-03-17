@@ -36,13 +36,15 @@ export default function Login() {
           setFormData({
           email: '',
           password: ''})
-          console.log(response.token,"resppppp")
+         // console.log(response.token,"resppppp")
           localStorage.setItem("token",response.token)
-          localStorage.setItem('_i',response.data._id)
-          localStorage.setItem('_n',response.data.name)
-          localStorage.setItem('_e',response.data.email)
+          localStorage.setItem('_i',response._id)
+          localStorage.setItem('_n',response.name)
+          localStorage.setItem('_e',response.email)
+          localStorage.setItem('_m',response.mobile)
            navigate('/udashboard')
         } catch (err) {
+          console.log(err,"errrrr")
           //setSigninRequestStatus('idle')
           // console.error(err.response.data.errors)
           setErrormsg(err.response.data.errors)

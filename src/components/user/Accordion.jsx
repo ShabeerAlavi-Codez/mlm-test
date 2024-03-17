@@ -68,12 +68,23 @@ export default function Accordion(props) {
     const handlUpload= async (e) => {
         let formData={
             userId:props.userId,
-            name:name,
-            mobile:mobile,
-            upiId:upiId
+            name:props.name,
+            mobile:props.mobile,
+            upiId:upiId,
+            firstPaymentStatus:firstPaymentStatus,
+            cmpUpi:qr,
+            payment_details:{
+                payment_type:"first",
+                payment_status:"requsted",
+                // payment_try:1,
+                payment_amount:500,
+                payment_date: new Date(),
+                cmp_upi:qr
+                }
+
         }
         console.log("hann",e,"jjjdata",formData)
-          e.preventDefault();
+           e.preventDefault();
             try {
                 if(upiId=='' || formData.userId ==''){
                     setError("session expired !!! pls try logout and relogin!!!");
@@ -99,7 +110,7 @@ export default function Accordion(props) {
               console.error(err)
             } 
           // Handle form submission
-          console.log(formData);
+        // console.log(formData);
         };
 
        

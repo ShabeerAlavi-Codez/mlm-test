@@ -18,7 +18,7 @@ useEffect(() => {
       try {
         const response = await fetch(`${BASE_URI}api/admin/nl`);
         const fetchedData = await response.json();
-        console.log("333fetchedData3333##",fetchedData.data);
+       // console.log("333fetchedData3333##",fetchedData.data);
         setData(fetchedData.data);
       } catch (error) {
         console.error('Error fetching data:', error); // Handle errors gracefully

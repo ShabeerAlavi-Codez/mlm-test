@@ -41,7 +41,7 @@ export const signup = createAsyncThunk(
         const res = await axios.post(`${BASE_URI}api/users/login`, initialData)
         console.log(res,"axiiiiiios")
         //data axios, backend 2 data
-        return res.data.data.data
+        return res.data.data.data.data
       } catch (err) {
         // console.log(err,"errrxxx,,,,axiiiiiios")
         return thunkAPI.rejectWithValue(err)
@@ -72,6 +72,7 @@ export const signup = createAsyncThunk(
       localStorage.removeItem('_i')
       localStorage.removeItem('_n')
       localStorage.removeItem('_e')
+      localStorage.removeItem('_m')
       return null;  // Indicate successful logout (you can return any data here)
     }
   )
@@ -95,6 +96,7 @@ const registerSlice =createSlice({
             state.email=action.payload.email
         })
         .addCase(signin.fulfilled,(state,action)=> {
+          console.log(action.payload,"addcase")
             state.userId=action.payload._id,
             state.name=action.payload.name,
             state.mobile=action.payload.mobile,
