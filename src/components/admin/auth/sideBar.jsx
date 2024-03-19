@@ -1,30 +1,8 @@
 
-import { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-// import { increment } from "../../features/counterSlice";
-// import sideBar from './sideBar';
-import { useNavigate } from 'react-router-dom'
-import { signout } from '../../../features/registerSlice'; 
 
-
-export default function Dashboard() {
-
-    const navigate=useNavigate();
-    const dispatch=useDispatch();
-    const handleLogout = async () => {
-        try {
-          await dispatch(signout()); // Dispatch the signout action
-          navigate('/'); // Navigate to the login route after successful logout
-        } catch (error) {
-          console.error('Error during logout:', error);
-          // Handle errors here (optional: display error message to user)
-        }
-      };
-     
-    return (
-
-        <div className="flex">
-          <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
+function sideBar() {
+  return (
+    <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
             <div className="space-y-3">
                 <div className="flex items-center">
                     <h2 className="text-xl font-bold text-white">Admin Panel</h2>
@@ -77,7 +55,7 @@ export default function Dashboard() {
                         </li>
                         <li className="rounded-sm">
                             <a
-                                href="/approval"
+                                href="#"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 {/* <svg width="100px" 
@@ -176,54 +154,7 @@ export default function Dashboard() {
                 </div>
             </div>
         </div>
-        <div className="container mx-auto mt-12">
-            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Total users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                        120
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        New joining
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-blue-900">
-                        5
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Pending approval
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-green-900">
-                        20
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Active Users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                        20
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Inactive Users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-red-900">
-                        100
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  )
+}
 
-         
-
-    );
-  }
-  
+export default sideBar

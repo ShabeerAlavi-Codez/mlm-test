@@ -3,10 +3,14 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import QRCode from 'react-qr-code';
 import { useDispatch,useSelector } from 'react-redux';
-import { useState,useEffect } from 'react'; 
-import { addNode } from "../../features/nodelistSlice";
+import { useState,useEffect,useRef } from 'react'; 
+import { chain, difference } from "lodash";
+import Tesseract from "tesseract.js";
+import { addNode,fPay } from "../../features/nodelistSlice";
 import {getUser } from "../../features/registerSlice";
 import { BASE_URI} from '../../../config/keys-dev';
+
+const VALID_WORDS = [ "paid"];
 
 
 export default function Accordion(props) { 
@@ -17,6 +21,11 @@ export default function Accordion(props) {
      const [qr, setQr]=useState('')
      const [upiId,setUpiId]=useState('');
      const [ canSubmit1,setCansubmit1]= useState(false);
+     const inputRef = useRef(null);
+     const [hasImage, setHasImage] = useState(false);
+     const [imageSrc, setImageSrc] = useState("");
+     const [file, setFile] = useState(null);
+     const [message, setMessage] = useState("");
 
      useEffect(() => {
         const fetchData = async () => {
@@ -65,37 +74,113 @@ export default function Accordion(props) {
       if (props.hide) {
         return null; // Hide the Accordion if 'hide' prop is true
     }
-    const handlUpload= async (e) => {
-        let formData={
-            userId:props.userId,
-            name:props.name,
-            mobile:props.mobile,
-            upiId:upiId,
-            firstPaymentStatus:firstPaymentStatus,
-            cmpUpi:qr,
-            payment_details:{
-                payment_type:"first",
-                payment_status:"requsted",
-                // payment_try:1,
-                payment_amount:500,
-                payment_date: new Date(),
-                cmp_upi:qr
-                }
-
+    const handleSelectFileClick = () => {
+        if (inputRef?.current) {
+          inputRef.current.click();
         }
+      };
+      const handleClearImageClick = () => {
+        setHasImage(false);
+        setImageSrc("");
+        setMessage("");
+      };
+      const handleFileSelectionChange = (event) => {
+        const newFile = event.target.files[0];
+        
+        setHasImage(true);
+        setFile(newFile);
+        recognizeText(newFile);
+    
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(newFile);
+        fileReader.onload = (event) => {
+          // console.log("targettt",newFile)
+          setImageSrc(event.target.result);
+        };
+      };
+    
+      const recognizeText = async (imageFile) => {
+        setMessage("Identifying text in image...");
+        const response = await Tesseract.recognize(imageFile, "eng", {
+          logger: (m) => console.log(m)
+        });
+    
+        const { data } = response;
+        if (data?.text) {
+          const text = chain(data?.text)
+            .replace(/(\r\n|\n|\r)/gm, " ")
+            .replace(/,/g, "")
+            .replace(/\./g, "")
+            .trim()
+            .lowerCase()
+            .value();
+    
+          const words = chain(text)
+            .split(" ")
+            .map((item) => {
+              if (item) {
+                return item;
+              }
+            })
+            .value();
+    
+          console.log("words > ", words);
+    
+          if (difference(VALID_WORDS, words)?.length === 0) {
+            setMessage("✔️");
+          } else {
+            setMessage("Please upload valid image!.");
+          }
+        } else {
+          setMessage("Please upload valid image!!.");
+        }
+      };
+    
+    const handlUpload= async (e) => {
+     
+      if (!file) {
+        setMessage('Please select a file.');
+        return;
+    }
+    const payment_details={
+      payment_type:"first",
+      // payment_try:1,
+      payment_amount:500,
+      payment_date: new Date(),
+      cmp_upi:qr
+      }
+
+    const formData = new FormData();
+    formData.append('userId', props.userId);
+    formData.append('name', props.name);
+    formData.append('mobile', props.mobile);
+    formData.append('upiId', upiId);
+    formData.append('imgUri', file);
+    formData.append('firstPaymentStatus',firstPaymentStatus);
+    formData.append('payment_status',"requsted");
+    formData.append('payment_amount', 500);
+    formData.append('payment_date',new Date());
+    formData.append('cmp_upi', qr);
+    formData.append('payment_try',1);
+
+ 
+      
         console.log("hann",e,"jjjdata",formData)
            e.preventDefault();
             try {
                 if(upiId=='' || formData.userId ==''){
                     setError("session expired !!! pls try logout and relogin!!!");
                     return  
+                }else if(message !=="✔️"){
+                  alert("Please upload valid image and try!!")
                 }else{
                    
                     try {
                         setIsLoading(true);
-                        setCansubmit1(true)
-                        await dispatch(addNode(formData)).unwrap()
-                        await dispatch(getUser(formData.userId))
+                        setCansubmit1(true);
+                       // console.log("fff",formData)
+                        await dispatch(fPay(formData)).unwrap()
+                        await dispatch(getUser(props.userId))
                       } catch (err) {
                         console.error('Unable to create post:', err);
                       } finally {
@@ -112,7 +197,6 @@ export default function Accordion(props) {
           // Handle form submission
         // console.log(formData);
         };
-
        
     return ( 
         <>
@@ -145,7 +229,7 @@ export default function Accordion(props) {
                     
                     <p>user name:{props.name} </p>
 
-                    <form onSubmit={handlUpload}>
+                    <form onSubmit={handlUpload} encType="multipart/form-data">
                        
                         {props.isIfsc? 
                         <div>
@@ -206,12 +290,16 @@ export default function Accordion(props) {
                         <input
                          type="file" 
                          accept="image/*"
+                         name="image"
+                         ref={inputRef}
+                         onChange={handleFileSelectionChange}
                          className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" />
                          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                           type="submit" disabled={canSubmit1} >
                             {isLoading ? 'Processing...' : 'Upload'}
                         </button>
                         </div>
+                        <div className="message text-red font-bold" >{message}</div>
                         
                     </form>
                     

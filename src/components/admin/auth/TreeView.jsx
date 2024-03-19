@@ -52,40 +52,7 @@ useEffect(() => {
             sortable: true,
         },
     ];
-    const data=[
-        {
-            nodeId:1005,
-            name:"A",
-            mobile:"7994465721",
-            ref_node:"A",
-            ref_node_code:1005
-
-        },
-        {
-            nodeId:1006,
-            name:"B",
-            mobile:"7994465721",
-            ref_node:"A",
-            ref_node_code:1005
-
-        },
-        {
-            nodeId:1007,
-            name:"C",
-            mobile:"7994465721",
-            ref_node:"A",
-            ref_node_code:1005
-        },
-        {
-            nodeId:1008,
-            name:"D",
-            mobile:"7994465721",
-            ref_node:"B",
-            ref_node_code:1006
-
-        },
-
-    ]
+    
     const ExpandedComponent = ( apidata ) => <pre>{JSON.stringify(apidata.data, null, 2)}</pre>;
  
 
@@ -145,7 +112,7 @@ useEffect(() => {
                         </li>
                         <li className="rounded-sm">
                             <a
-                                href="#"
+                                href="/approval"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 {/* <svg width="100px" 

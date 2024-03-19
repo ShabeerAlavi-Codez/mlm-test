@@ -6,6 +6,7 @@ import Adashbord from './components/admin/auth/Dashboard'
 import Otp from "./components/auth/Otp";
 import TreeView from "./components/admin/auth/TreeView";
 import Settings from "./components/admin/auth/Settings";
+import Approval from "./components/admin/auth/Approval";
 // import PrivateRoute from "./components/auth/PrivateRoute";
 const App = () => {
   return (
@@ -18,9 +19,10 @@ const App = () => {
                 <Route path="/" exact  element={<Login/>} />
                   <Route path="/otp" exact  element={<Otp/>} />
                   <Route path="/register" exact  element={<Register/>} />
-                  <Route path="/udashboard" exact   element={<Dashboard />} />
+                  <Route path="/udashboard" exact   element={<Dashboard />} /> 
                   <Route path="/adashboard" exact  element={<Adashbord/>} /> 
                   <Route path="/nodeview" exact  element={<TreeView/>} /> 
+                  <Route path="/approval" exact   element={<Approval />} />
                   <Route path="/settings" exact  element={<Settings/>} /> 
               </Routes>
             </>

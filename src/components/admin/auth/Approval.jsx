@@ -1,30 +1,55 @@
-
-import { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-// import { increment } from "../../features/counterSlice";
-// import sideBar from './sideBar';
-import { useNavigate } from 'react-router-dom'
-import { signout } from '../../../features/registerSlice'; 
+import { useState, useEffect } from 'react';
+import DataTable from 'react-data-table-component'; 
+import { BASE_URI} from '../../../../config/keys-dev';
 
 
-export default function Dashboard() {
 
-    const navigate=useNavigate();
-    const dispatch=useDispatch();
-    const handleLogout = async () => {
-        try {
-          await dispatch(signout()); // Dispatch the signout action
-          navigate('/'); // Navigate to the login route after successful logout
-        } catch (error) {
-          console.error('Error during logout:', error);
-          // Handle errors here (optional: display error message to user)
+export default function Approval() {
+    const [apidata, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+// const expandableRows= true;
+// const	expandOnRowClicked=false;
+// const	expandOnRowDoubleClicked=false;
+// const	expandableRowsHideExpander= false;
+
+useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true); // Set loading state to true
+      try {
+        const response = await fetch(`${BASE_URI}api/admin/approve`);
+        const fetchedData = await response.json();
+       // console.log("333fetchedData3333##",fetchedData.data);
+        setData(fetchedData.data);
+      } catch (error) {
+        console.error('Error fetching data:', error); // Handle errors gracefully
+      } finally {
+        setIsLoading(false); // Set loading state to false after fetch (optional)
+      }
+    };
+
+    fetchData(); // Call the fetch function on component mount
+  }, []); 
+    
+    const columns = [
+        {
+            name: 'name',
+            selector: row => row.name,
+            sortable: true,
+        },
+        {
+            name: 'mobile',
+            selector: row => row.mobile,
+            sortable: true,
         }
-      };
-     
-    return (
+    ];
+    
+    const ExpandedComponent = ( apidata ) => <pre>{JSON.stringify(apidata.data, null, 2)}</pre>;
+ 
 
+
+    return (
         <div className="flex">
-          <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
+        <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
             <div className="space-y-3">
                 <div className="flex items-center">
                     <h2 className="text-xl font-bold text-white">Admin Panel</h2>
@@ -33,7 +58,7 @@ export default function Dashboard() {
                     <ul className="pt-2 pb-4 space-y-1 text-sm">
                         <li className="rounded-sm">
                             <a
-                                href="#"
+                                href="/adashboard"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -151,8 +176,8 @@ export default function Dashboard() {
                             </a>
                         </li>
                         <li className="rounded-sm">
-                            <button
-                                onClick={handleLogout}
+                            <a
+                                href="#"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -170,60 +195,35 @@ export default function Dashboard() {
                                     />
                                 </svg>
                                 <span className="text-gray-100">Logout</span>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div className="container mx-auto mt-12">
-            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Total users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                        120
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        New joining
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-blue-900">
-                        5
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Pending approval
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-green-900">
-                        20
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Active Users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                        20
-                    </div>
-                </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-                    <div className="text-sm font-medium text-gray-500 truncate">
-                        Inactive Users
-                    </div>
-                    <div className="mt-1 text-3xl font-semibold text-red-900">
-                        100
-                    </div>
-                </div>
+            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-1">
+                
+            {isLoading && <p>Loading data...</p>}
+                {apidata && (
+                    <DataTable
+                    // title="Node List"
+                    columns={columns}
+                    data={apidata}
+                   // expandableRows={true}
+                  //  expandableRowsComponent={ExpandedComponent}
+                   // expandOnRowClicked={true}
+                    // expandOnRowDoubleClicked={expandOnRowDoubleClicked}
+                    // expandableRowsHideExpander={expandableRowsHideExpander}
+                   pagination
+                />
+                )}
+                {!isLoading && !apidata && <p>No data available yet.</p>}
             </div>
         </div>
     </div>
-
-         
-
-    );
-  }
-  
+    
+    )
+    
+    
+    }

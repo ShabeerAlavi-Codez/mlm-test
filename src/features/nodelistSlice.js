@@ -12,9 +12,35 @@ const initialState ={
   nodeId:0,
   ref_node:"",
   ref_node_code:0,
+  message:""
 }
 
-// Handle POST request to create a new account
+// Handle POST request to create a new account  /fpay
+
+export const fPay = createAsyncThunk(
+  // The name of the action
+  'nodelist/fPay',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/fPay",initialData)
+      //const res = await axios.post(url, initialData)
+      const res = await axios.post(`${BASE_URI}api/users/fpay`, initialData,{
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }})
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
 export const addNode = createAsyncThunk(
     // The name of the action
     'nodelist/addNode',
@@ -77,14 +103,11 @@ const nodelistSlice =createSlice({
             state.ref_node_code=action.payload.ref_node_code,
             state.ref_upiId=action.payload.ref_upiId
         })
-        // .addCase(signin.fulfilled,(state,action)=> {
-        //     state.name=action.payload.name,
-        //     state.mobile=action.payload.mobile,
-        //     state.email=action.payload.email,
-        //     state.firstPaymentStatus=action.payload.firstPaymentStatus,
-        //     state.secondPaymentStatus=action.payload.secondPaymentStatus,
-        //     state.bankDetailsStatus=action.payload.bankDetailsStatus
-        // })
+        .addCase(fPay.fulfilled,(state,action)=> {
+          console.log(action,"actionnnnnnnnnnnn")
+          state.message=action.payload
+          
+        })
        
       },
 })

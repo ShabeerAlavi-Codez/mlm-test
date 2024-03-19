@@ -53,6 +53,7 @@ export const signup = createAsyncThunk(
     'register/getUser',
     async (initialData, thunkAPI) => {
       try {
+        console.log(initialData,"guuuuuuuuuuuuuuuuuuuuuuuu")
         //const res = await axios.post(url, initialData)
         const res = await axios.get(`${BASE_URI}api/users/gu/${initialData}`)
        // console.log(res,"axiiiiiios")
