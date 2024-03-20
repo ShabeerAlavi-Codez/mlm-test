@@ -41,6 +41,27 @@ export const fPay = createAsyncThunk(
     }
   }
 )
+export const rejCmp=createAsyncThunk(
+  // The name of the action
+  'nodelist/rejCmp',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/rejCmp",initialData)
+      //const res = await axios.post(url, initialData)
+      const res = await axios.post(`${BASE_URI}api/users/rejCmp`, initialData)
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
 export const addNode = createAsyncThunk(
     // The name of the action
     'nodelist/addNode',
@@ -104,6 +125,9 @@ const nodelistSlice =createSlice({
             state.ref_upiId=action.payload.ref_upiId
         })
         .addCase(fPay.fulfilled,(state,action)=> {
+          state.message=action.payload
+          
+        }).addCase(rejCmp.fulfilled,(state,action)=> {
           console.log(action,"actionnnnnnnnnnnn")
           state.message=action.payload
           
