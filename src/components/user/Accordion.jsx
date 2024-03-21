@@ -10,7 +10,8 @@ import { addNode,fPay } from "../../features/nodelistSlice";
 import {getUser } from "../../features/registerSlice";
 import { BASE_URI} from '../../../config/keys-dev';
 
-const VALID_WORDS = [ "paid"];
+const VALID_WORDS = [
+   "paid","pay","UPI","payment","500","again","id","completed","payments","done","phone","pe","phonepe",",upi","transaction","split"];
 
 
 export default function Accordion(props) { 
@@ -125,8 +126,20 @@ export default function Accordion(props) {
             .value();
     
           console.log("words > ", words);
-    
-          if (difference(VALID_WORDS, words)?.length === 0) {
+          console.log(VALID_WORDS,"difference(VALID_WORDS, words)?.length === 0",difference(VALID_WORDS, words))
+          const isValid=(words, validWords) =>{
+            if (!words || words.length < 2) {
+              return false;
+          }
+      
+          // Filter words that are not in validWords
+          const diff = validWords.filter(word => !words.includes(word));
+      
+          // Check if there are at least two valid words
+          return validWords.length - diff.length >= 2;
+        }
+        console.log("valitssssss")
+          if (isValid(words, VALID_WORDS)) {
             setMessage("✔️");
           } else {
             setMessage("Please upload valid image!.");
