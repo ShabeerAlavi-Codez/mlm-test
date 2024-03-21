@@ -101,7 +101,12 @@ useEffect(() => {
             sortable: true,
         },
         {
-            name: 'company_upi',
+            name: 'company upi',
+            selector: row => row.upiId,
+            sortable: true,
+        },
+        {
+            name: 'user upi',
             selector: row => row.paymentDetails[0].cmp_upi,
             sortable: true,
         },
