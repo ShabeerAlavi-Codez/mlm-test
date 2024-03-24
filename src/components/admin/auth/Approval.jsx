@@ -3,6 +3,8 @@ import DataTable from 'react-data-table-component';
 import { addNode,rejCmp } from "../../../features/nodelistSlice";
 import { BASE_URI} from '../../../../config/keys-dev';
 import { useDispatch,useSelector } from 'react-redux';
+import { signout } from '../../../features/registerSlice'; 
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -35,6 +37,15 @@ useEffect(() => {
 
     fetchData(); // Call the fetch function on component mount
   }, [refresh]); 
+  const handleLogout = async () => {
+    try {
+      await dispatch(signout()); // Dispatch the signout action
+      navigate('/'); // Navigate to the login route after successful logout
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle errors here (optional: display error message to user)
+    }
+  };
 
   const handleApprove =async (row)=>{
        
@@ -45,7 +56,10 @@ useEffect(() => {
             name: row.name,
             mobile:row.mobile,
             upiId: row.upiId,
-            payment_status:row.payment_status 
+            payment_status:row.payment_status,
+            accNo:row.accNo,
+            ifsc:row.ifsc,
+            uMobile:row.uMobile,
 
 
         }
@@ -272,8 +286,8 @@ useEffect(() => {
                             </a>
                         </li>
                         <li className="rounded-sm">
-                            <a
-                                href="#"
+                            <button
+                                onClick={handleLogout}
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -291,7 +305,7 @@ useEffect(() => {
                                     />
                                 </svg>
                                 <span className="text-gray-100">Logout</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>

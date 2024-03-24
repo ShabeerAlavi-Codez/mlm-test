@@ -107,8 +107,12 @@ const registerSlice =createSlice({
             state.mobile=action.payload.mobile,
             state.email=action.payload.email,
             state.firstPaymentStatus=action.payload.firstPaymentStatus,
+            state.firstPaymentApprovel=action.payload && action.payload.firstPaymentApprovel,
             state.secondPaymentStatus=action.payload.secondPaymentStatus,
-            state.bankDetailsStatus=action.payload.bankDetailsStatus
+            state.bankDetailsStatus=action.payload.bankDetailsStatus,
+            state.ref_uMobile=action.payload && action.payload.ref_uMobile,
+            state.ref_ifsc=action.payload && action.payload.ref_ifsc,
+            state.ref_accNo=action.payload && action.payload.ref_accNo
         })
         .addCase(signout.fulfilled, (state, action) => {
           // Clear user data on successful logout (optional)
