@@ -263,7 +263,7 @@ export default function Accordion(props) {
                         className="mr-2 p-2 border-2 border-red-500"
                         size={256}
                         style={{ height: "155", maxWidth: "200", width: "155" }}
-                        value={ref_upiId}
+                        value={`upi://pay?pa=${ref_upiId}`}
                         viewBox={`0 0 256 256`}
                     />
                     <p>user name:{props.name}</p>
