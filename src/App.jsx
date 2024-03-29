@@ -4,11 +4,13 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/user/Dashboard';
 import Adashbord from './components/admin/auth/Dashboard';
+import ALogin from './components/admin/auth/Login';
 import Otp from './components/auth/Otp';
 import TreeView from './components/admin/auth/TreeView';
 import Settings from './components/admin/auth/Settings';
 import Approval from './components/admin/auth/Approval';
 import PrivateRoute from './components/auth/PrivateRoute';
+import AdminRoute from './components/admin/auth/AdminRoute';
 
 const App = () => {
   return (
@@ -20,10 +22,11 @@ const App = () => {
             <Route path="/otp" element={<Otp />} />
             <Route path="/register" element={<Register />} />
             <Route path="/udashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/adashboard" element={<Adashbord />} />
-            <Route path="/nodeview" element={<TreeView />} />
-            <Route path="/approval" element={<Approval />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/alogin" element={<ALogin/>} />
+            <Route path="/adashboard" element={<AdminRoute><Adashbord /></AdminRoute>} />
+            <Route path="/nodeview" element={<AdminRoute><TreeView /></AdminRoute>} />
+            <Route path="/approval" element={<AdminRoute><Approval /></AdminRoute>} />
+            <Route path="/settings" element={<AdminRoute><Settings /></AdminRoute>} />
           </Routes>
         </div>
       </div>
