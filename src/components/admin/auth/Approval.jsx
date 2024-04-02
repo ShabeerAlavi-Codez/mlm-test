@@ -317,14 +317,8 @@ useEffect(() => {
             {isLoading && <p>Loading data...</p>}
                 {apidata && (
                     <DataTable
-                    // title="Node List"
                     columns={columns}
                     data={apidata}
-                   // expandableRows={true}
-                  //  expandableRowsComponent={ExpandedComponent}
-                   // expandOnRowClicked={true}
-                    // expandOnRowDoubleClicked={expandOnRowDoubleClicked}
-                    // expandableRowsHideExpander={expandableRowsHideExpander}
                    pagination
                 />
                 )}

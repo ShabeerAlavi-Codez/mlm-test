@@ -8,10 +8,12 @@ const initialState ={
     mobile: '',
     email: '',
     password: '',
+    upiID:'',
     firstPaymentStatus:false,
     secondPaymentStatus:false,
     bankDetailsStatus:false,
     firstPaymentApprovel:"",
+    secondPaymentApprovel:"",
     ref_upiId:'1',
     ref_node:"a",
     ref_accNo:"9999 2024 20241",
@@ -101,7 +103,7 @@ const registerSlice =createSlice({
             state.email=action.payload.email
         })
         .addCase(signin.fulfilled,(state,action)=> {
-          console.log(action.payload,"addcase")
+         // console.log(action.payload,"addcase")
             state.userId=action.payload._id,
             state.name=action.payload.name,
             state.mobile=action.payload.mobile,
@@ -109,11 +111,14 @@ const registerSlice =createSlice({
             state.firstPaymentStatus=action.payload.firstPaymentStatus,
             state.firstPaymentApprovel=action.payload && action.payload.firstPaymentApprovel,
             state.secondPaymentStatus=action.payload.secondPaymentStatus,
+            state.secondPaymentApprovel=action.payload && action.payload.secondPaymentApprovel,
             state.bankDetailsStatus=action.payload.bankDetailsStatus,
             state.ref_uMobile=action.payload && action.payload.ref_uMobile,
+            state.ref_node_code=action.payload && action.payload.ref_node_code,
             state.ref_ifsc=action.payload && action.payload.ref_ifsc,
             state.ref_accNo=action.payload && action.payload.ref_accNo,
-            state.ref_upiId=action.payload&& action.payload.ref_upiId
+            state.ref_upiId=action.payload&& action.payload.ref_upiId,
+            state.upiID=action.payload&& action.payload.UpiId
         })
         .addCase(signout.fulfilled, (state, action) => {
           // Clear user data on successful logout (optional)
@@ -131,13 +136,16 @@ const registerSlice =createSlice({
           state.name=action.payload.name,
           state.mobile=action.payload.mobile,
           state.email=action.payload.email,
+          state.upiID=action.payload&& action.payload.UpiId,
           state.firstPaymentStatus=action.payload.firstPaymentStatus,
           state.secondPaymentStatus=action.payload.secondPaymentStatus,
+          state.secondPaymentApprovel=action.payload && action.payload.secondPaymentApprovel,
           state.bankDetailsStatus=action.payload.bankDetailsStatus,
           state.ref_upiId=action.payload.ref_upiId,
           state.ref_uMobile=action.payload && action.payload.ref_uMobile,
           state.ref_ifsc=action.payload && action.payload.ref_ifsc,
           state.ref_accNo=action.payload && action.payload.ref_accNo,
+          state.ref_node_code=action.payload && action.payload.ref_node_code,
           state.ref_node=action.payload.ref_node,
           state.firstPaymentApprovel=action.payload.firstPaymentApprovel
       })

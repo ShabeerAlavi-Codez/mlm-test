@@ -6,7 +6,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useState,useEffect,useRef } from 'react'; 
 import { chain, difference } from "lodash";
 import Tesseract from "tesseract.js";
-import { addNode,fPay } from "../../features/nodelistSlice";
+import { addNode,fPay,sPay } from "../../features/nodelistSlice";
 import {getUser } from "../../features/registerSlice";
 import PaymentComponent from "./PaymentComponent";
 import { BASE_URI} from '../../../config/keys-dev';
@@ -26,6 +26,8 @@ export default function Accordion(props) {
      const [ifsc,setIfsc]=useState('');
      const [uMobile,setUmobile]=useState('');
      const [ canSubmit1,setCansubmit1]= useState(false);
+     const [ canSubmit2,setCansubmit2]= useState(false);
+    //  const [ secondPaymentApprovel,setSecPay]= useState('');
      const inputRef = useRef(null);
      const [hasImage, setHasImage] = useState(false);
      const [imageSrc, setImageSrc] = useState("");
@@ -38,7 +40,8 @@ export default function Accordion(props) {
           try {
             const response = await fetch(`${BASE_URI}api/admin/cmp`);
             const fetchedData = await response.json();
-            console.log("333fetchedData3333##",fetchedData.data);
+            console.log("333fetchedData3333##");
+            await dispatch(getUser(localStorage.getItem("_i")))
             setData(fetchedData.data);
             setQr(fetchedData.data[0].UpiId)
           } catch (error) {
@@ -51,7 +54,7 @@ export default function Accordion(props) {
         fetchData(); // Call the fetch function on component mount
       }, []); 
 
-     const {userId,name,mobile,email,firstPaymentApprovel,firstPaymentStatus,secondPaymentStatus,bankDetailsStatus,ref_upiId,ref_node, ref_accNo,ref_ifsc, ref_uMobile} = useSelector(state => state.register)
+     const {userId,name,mobile,email,firstPaymentApprovel,firstPaymentStatus,secondPaymentApprovel,secondPaymentStatus,bankDetailsStatus,ref_upiId,ref_node, ref_accNo,ref_ifsc, ref_uMobile,ref_node_code,upiID} = useSelector(state => state.register)
     // const{ref_upiId,isMaturedNode,maturedNode,nodeId,ref_node,ref_node_code}=useSelector(state=>state.nodelist)
      //let nodelist=useSelector(state=>state.nodelist);
       // Use ref_node here (e.g., conditional rendering)
@@ -99,11 +102,31 @@ export default function Accordion(props) {
         setMessage("");
       };
       const handleFileSelectionChange = (event) => {
+        console.log("event.target.fileee#111111111111111111111##########################xx#########")
         const newFile = event.target.files[0];
         
         setHasImage(true);
         setFile(newFile);
         recognizeText(newFile);
+    
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(newFile);
+        fileReader.onload = (event) => {
+          // console.log("targettt",newFile)
+          setImageSrc(event.target.result);
+        };
+      };
+
+      const handleFileSelectionChange2 = (event) => {
+        console.log("event.target.fileee####################################")
+        
+        console.log("event.target.fileee")
+        const newFile = event.target.files[0];
+        
+        setHasImage(true);
+        setFile(newFile);
+        recognizeText(newFile);
+       // console.log(file,"fillllll")
     
         const fileReader = new FileReader();
         fileReader.readAsDataURL(newFile);
@@ -154,6 +177,7 @@ export default function Accordion(props) {
         console.log("valitssssss")
           if (isValid(words, VALID_WORDS)) {
             setMessage("✔️");
+            setCansubmit2(false);
           } else {
             setMessage("Please upload valid image!.");
           }
@@ -226,11 +250,105 @@ export default function Accordion(props) {
           // Handle form submission
         // console.log(formData);
         };
+    const handlUpload2= async (e) => {
+     
+          if (!file) {
+            setMessage('Please select a file.');
+            return;
+        }
+        const payment_details={
+          payment_type:"second",
+          // payment_try:1,
+          payment_amount:2000,
+          payment_date: new Date(),
+          ref_upi:ref_upiId
+          }
+    
+        const formData1 = new FormData();
+        formData1.append('userId',localStorage.getItem("_i"));
+        formData1.append('name',localStorage.getItem("_n"));
+        formData1.append('mobile',localStorage.getItem("_m"));
+        formData1.append('upiId',upiID);
+        formData1.append('ref_upiId', ref_upiId);
+        formData1.append('ref_node_code', ref_node_code);
+        formData1.append('imgUri', file);
+        formData1.append('secondPaymentStatus',secondPaymentStatus);
+        formData1.append('payment_status',"requsted");
+        formData1.append('payment_amount', 2000);
+        formData1.append('payment_date',new Date());
+        formData1.append('payment_try',1);
+    
+     
+          //console.log(ref_upiId,"kk", formData1)
+            
+               e.preventDefault();
+                try {
+                    if(ref_upiId==''){
+                      console.log("session expired !!! pls try logout and relogin!!!")
+                        setError("session expired !!! pls try logout and relogin!!!");
+                        return  
+                    }else if(message !=="✔️"){
+                      alert("Please upload valid image and try!!")
+                    }else{
+                       
+                        try {
+                          console.log("hann",e,"jjjdata",formData1)
+                            setIsLoading(true);
+                           // setCansubmit2(true);
+                           await dispatch(sPay(formData1)).unwrap()
+                            
+                           // console.log("fff",formData)
+                            // 
+                             await dispatch(getUser(props.userId))
+                          } catch (err) {
+                            console.error('Unable to create post:', err);
+                          } finally {
+                            setIsLoading(false); // Reset loading state
+                          }
+                       
+                    }
+                 
+                //   navigate('/udashboard')
+                } catch (err) {
+                  //setSigninRequestStatus('idle')
+                  console.error(err)
+                } 
+              // Handle form submission
+            // console.log(formData);
+            };
 
         let content;
         let notification;
-      
-        if (firstPaymentApprovel === 'approved') {
+
+        if (secondPaymentApprovel == 'requested') {
+          content = (
+            <div class="shadow-lg rounded-lg bg-white mx-auto m-8 p-4 notification-box flex">
+            <div class="pr-2">
+              <svg
+                class="fill-current text-green-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+              >
+                <path
+                  class="heroicon-ui"
+                  d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm pb-2">
+                Notification
+              </div>
+              <div class="text-sm text-gray-600  tracking-tight ">
+                 Waiting for second approval ----
+              </div>
+            </div>
+          </div>
+          );
+          notification = <div style={{ color: 'blue' }}>Status :Requested</div>;
+        } else if (firstPaymentApprovel === 'approved') {
           content = (
             <div className="border rounded-md mb-1 mt-10">
             <button 
@@ -268,7 +386,7 @@ export default function Accordion(props) {
                     />
                     <p>user name:{props.name}</p>
                     <p><span style={{color:"green"}}>{ref_node}</span>'s UPI Id (refferal):- <span style={{color:"red"}}>{ref_upiId}</span></p>
-                    <form onSubmit={handlUpload}>
+                    <form onSubmit={handlUpload2} encType="multipart/form-data">
                         {props.isIfsc && (
                             <div>
                                <div style={{display:"flex"}}>
@@ -321,15 +439,27 @@ export default function Accordion(props) {
                                 </CountdownCircleTimer>
                             )}
                         </div>
-                        <label htmlFor="form" className="mb-2 inline-block text-neutral-700 dark:text-neutral-200">Upload the screenshot</label> 
+                        <label
+                        for="form"
+                        className="mb-2 inline-block text-neutral-700 dark:text-neutral-200">
+                        Upload the screenshot</label> 
+                       
                         <div style={{display:"flex"}}>
-                            <input
-                                type="file" 
-                                accept="image/*"
-                                className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" 
-                            />
-                            <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">upload</span> 
+                 
+                        <input
+                         type="file" 
+                         accept="image/*"
+                         name="image"
+                         ref={inputRef}
+                         onChange={handleFileSelectionChange2}
+                         className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                         required />
+                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          type="submit" disabled={canSubmit2} >
+                            {isLoading ? 'Processing...' : 'Upload'}
+                        </button>
                         </div>
+                        <div className="message text-red font-bold" >{message}</div>
                     </form>
                 </div> 
             )}
@@ -405,23 +535,9 @@ export default function Accordion(props) {
             <div>
               <div class="text-sm pb-2">
                 Notification
-                {/* <span class="float-right">
-                  <svg
-                    class="fill-current text-gray-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="22"
-                    height="22"
-                  >
-                    <path
-                      class="heroicon-ui"
-                      d="M16.24 14.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 0 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12l2.83 2.83z"
-                    />
-                  </svg>
-                </span> */}
               </div>
               <div class="text-sm text-gray-600  tracking-tight ">
-                 Waiting for admin approval
+                 Waiting for admin approval ++{secondPaymentApprovel} ++ 
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'; // Import for dispatching actions
 import { useNavigate } from 'react-router-dom'; // Import for navigation
 import { signout } from '../../features/registerSlice'; 
 
-export default function Navbar() { 
+export default function Navbar({from}) { 
 	const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,25 +44,20 @@ export default function Navbar() {
 									border border-gray-100 rounded-lg 
 									bg-gray-50 md:flex-row md:space-x-8 
 									md:mt-0 md:border-0 md:bg-white"> 
-							{/* <li> 
-								<a href="#"
-								className="block py-2 pl-3 
-											pr-4 text-white bg-blue-700 
-											rounded md:bg-transparent 
-											md:text-blue-700 md:p-0"> 
-									Home 
-								</a> 
-							</li>  */}
-							<li> 
-								<a href="#"
-								className="block py-2 pl-3 
-											pr-4 text-gray-900 rounded 
-											hover:bg-gray-100 
-											md:hover:bg-transparent 
-											md:hover:text-blue-700 md:p-0"> 
-									Notifications
-								</a> 
-							</li> 
+							 {from === 'dash' && (
+        <li>
+          <a href="/notification" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">
+            Notifications
+          </a>
+        </li>
+      )}
+      {from === 'noti' && (
+        <li>
+          <a href="/udashboard" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">
+            Dashboard
+          </a>
+        </li>
+      )}
 							<li> 
 							<button onClick={handleLogout} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">
 								Logout

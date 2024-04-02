@@ -16,7 +16,6 @@ const initialState ={
 }
 
 // Handle POST request to create a new account  /fpay
-
 export const fPay = createAsyncThunk(
   // The name of the action
   'nodelist/fPay',
@@ -26,6 +25,30 @@ export const fPay = createAsyncThunk(
       console.log("nodelist/fPay",initialData)
       //const res = await axios.post(url, initialData)
       const res = await axios.post(`${BASE_URI}api/users/fpay`, initialData,{
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }})
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
+
+export const sPay = createAsyncThunk(
+  // The name of the action
+  'nodelist/sPay',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/sPay",initialData)
+      const res = await axios.post(`${BASE_URI}api/users/spay`, initialData,{
         headers: {
             'Content-Type': 'multipart/form-data'
         }})

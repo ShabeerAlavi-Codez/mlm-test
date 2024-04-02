@@ -61,7 +61,7 @@ export default function Dashboard() {
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
             </h2>
         </div>
-        <Navbar/> 
+        <Navbar from={"dash"}/> 
             <div className="p-2 m-8"> 
                 
                 <Accordion 
@@ -78,18 +78,7 @@ export default function Dashboard() {
                         name={name}
                         userId={userId}
                         mobile={mobile}
-                       
-                       
                     /> 
-                {/* <Accordion 
-                        key={accordions[1].key} 
-                        title={accordions[1].title} 
-                        data={accordions[1].data} 
-                        isOpen={accordions[1].isOpen} 
-                        isCount={accordions[1].isCount}
-                        qr={accordions[1].qr}
-                        toggleAccordion={() => toggleAccordion(accordions[1].key)} 
-                    />  */}
             </div> 
         
         <p className="text-center text-gray-600 textbase mt-9">

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Us
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/user/Dashboard';
+import Notification from './components/user/Notification';
 import Adashbord from './components/admin/auth/Dashboard';
 import ALogin from './components/admin/auth/Login';
 import Otp from './components/auth/Otp';
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/otp" element={<Otp />} />
             <Route path="/register" element={<Register />} />
             <Route path="/udashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/notification" element={<PrivateRoute><Notification/></PrivateRoute>} />
             <Route path="/alogin" element={<ALogin/>} />
             <Route path="/adashboard" element={<AdminRoute><Adashbord /></AdminRoute>} />
             <Route path="/nodeview" element={<AdminRoute><TreeView /></AdminRoute>} />
