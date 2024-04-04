@@ -64,6 +64,47 @@ export const sPay = createAsyncThunk(
     }
   }
 )
+
+export const sApprove = createAsyncThunk(
+  // The name of the action
+  'nodelist/sApprove',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/sApprove",initialData)
+      const res = await axios.post(`${BASE_URI}api/users/sapprove`, initialData)
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
+export const sReject = createAsyncThunk(
+  // The name of the action
+  'nodelist/sReject',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/sReject",initialData)
+      const res = await axios.post(`${BASE_URI}api/users/sreject`, initialData)
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
 export const rejCmp=createAsyncThunk(
   // The name of the action
   'nodelist/rejCmp',
@@ -151,6 +192,14 @@ const nodelistSlice =createSlice({
           state.message=action.payload
           
         }).addCase(rejCmp.fulfilled,(state,action)=> {
+          console.log(action,"actionnnnnnnnnnnn")
+          state.message=action.payload
+          
+        }).addCase(sApprove.fulfilled,(state,action)=> {
+          console.log(action,"actionnnnnnnnnnnn")
+          state.message=action.payload
+          
+        }).addCase(sReject.fulfilled,(state,action)=> {
           console.log(action,"actionnnnnnnnnnnn")
           state.message=action.payload
           

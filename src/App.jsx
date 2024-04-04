@@ -17,7 +17,7 @@ const App = () => {
   return (
     <Router> {/* Wrap app in BrowserRouter */}
       <div className="min-h-full h-screen flex items-center justify-center">
-        <div className="w-full space-y-8">
+        <div className="w-full space-y-8 ">
           <Routes>
             <Route path="/" element={<Login />} /> {/* Exact path not needed for root path */}
             <Route path="/otp" element={<Otp />} />
