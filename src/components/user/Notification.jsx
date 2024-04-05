@@ -78,10 +78,10 @@ export default function Notification() {
   return (
     <>
       <Navbar from={"noti"} />
-      <div className="relative top-32 px-4 mx-auto mt-30 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="relative top-32  bg-white mx-auto  p-4 notification-box flex">
-          <div className="relative top-32  text-gray-600 tracking-tight">
-            <h4 className="relative top-32 ">notification</h4>
+      <div className="absolute top-10 px-4 mx-auto items-center justify-center sm:px-6 lg:px-8 max-w-7xl">
+        <div className="relative top-1  bg-white mx-auto  p-4 notification-box flex">
+          <div className="relative top-1  text-gray-600 tracking-tight">
+            <h4 className="relative top-1">notification</h4>
             {apidata && apidata.length > 0 ? (
               apidata.map((data, index) => (
                 data.payment_status === "approved" ? (

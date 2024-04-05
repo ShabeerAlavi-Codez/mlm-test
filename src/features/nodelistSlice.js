@@ -105,6 +105,47 @@ export const sReject = createAsyncThunk(
     }
   }
 )
+export const fRetry = createAsyncThunk(
+  // The name of the action
+  'nodelist/fRetry',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/fRetry",initialData)
+      const res = await axios.post(`${BASE_URI}api/users/fretry`, initialData)
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
+export const sRetry = createAsyncThunk(
+  // The name of the action
+  'nodelist/sRetry',
+  // The payload creator
+  async (initialData, thunkAPI) => {
+    try {
+      console.log("nodelist/sRetry",initialData)
+      const res = await axios.post(`${BASE_URI}api/users/sretry`, initialData)
+      console.log("+++++++++++++++++++axiiiiiios")
+      console.log(res,"axiiiiiios")
+      console.log("-----------------axiiiiiios")
+      console.log("++++++++daa+++++++++++axiiiiiios")
+      console.log(res.data,"axiiiiiios")
+      console.log("---------data--------axiiiiiios")
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ error: err.message })
+    }
+  }
+)
+
 export const rejCmp=createAsyncThunk(
   // The name of the action
   'nodelist/rejCmp',
@@ -200,6 +241,14 @@ const nodelistSlice =createSlice({
           state.message=action.payload
           
         }).addCase(sReject.fulfilled,(state,action)=> {
+          console.log(action,"actionnnnnnnnnnnn")
+          state.message=action.payload
+          
+        }).addCase(sRetry.fulfilled,(state,action)=> {
+          console.log(action,"actionnnnnnnnnnnn")
+          state.message=action.payload
+          
+        }).addCase(fRetry.fulfilled,(state,action)=> {
           console.log(action,"actionnnnnnnnnnnn")
           state.message=action.payload
           

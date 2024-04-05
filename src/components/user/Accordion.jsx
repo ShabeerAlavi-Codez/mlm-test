@@ -6,7 +6,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useState,useEffect,useRef } from 'react'; 
 import { chain, difference } from "lodash";
 import Tesseract from "tesseract.js";
-import { addNode,fPay,sPay } from "../../features/nodelistSlice";
+import { addNode,fPay,sPay,sRetry ,fRetry} from "../../features/nodelistSlice";
 import {getUser } from "../../features/registerSlice";
 import PaymentComponent from "./PaymentComponent";
 import { BASE_URI} from '../../../config/keys-dev';
@@ -100,6 +100,56 @@ export default function Accordion(props) {
         setHasImage(false);
         setImageSrc("");
         setMessage("");
+      };
+      const handleFirstRetry= async()=>{
+        const formData = new FormData();
+        formData.append('userId', localStorage.getItem("_i"));
+        
+        try {
+                try {
+                    setIsLoading(true);
+                    setCansubmit1(true);
+                   // console.log("fff",formData)
+                    await dispatch(fRetry(formData)).unwrap()
+                    await dispatch(getUser(localStorage.getItem("_i")))
+                  } catch (err) {
+                    console.error('Unable to create post:', err);
+                  } finally {
+                    setIsLoading(false); // Reset loading state
+                  }
+               
+         
+        //   navigate('/udashboard')
+        } catch (err) {
+          //setSigninRequestStatus('idle')
+          console.error(err)
+        } 
+
+      };
+      const handleSecondRetry= async()=>{
+        const formData = new FormData();
+        formData.append('userId', localStorage.getItem("_i"));
+        
+        try {
+                try {
+                    setIsLoading(true);
+                    setCansubmit1(true);
+                   // console.log("fff",formData)
+                    await dispatch(sRetry(formData)).unwrap()
+                    await dispatch(getUser(localStorage.getItem("_i")))
+                  } catch (err) {
+                    console.error('Unable to create post:', err);
+                  } finally {
+                    setIsLoading(false); // Reset loading state
+                  }
+               
+         
+        //   navigate('/udashboard')
+        } catch (err) {
+          //setSigninRequestStatus('idle')
+          console.error(err)
+        } 
+
       };
       const handleFileSelectionChange = (event) => {
         console.log("event.target.fileee#111111111111111111111##########################xx#########")
@@ -348,7 +398,69 @@ export default function Accordion(props) {
           </div>
           );
           notification = <div style={{ color: 'blue' }}>Status :Requested</div>;
-        } else if (firstPaymentApprovel === 'approved') {
+        }else if (secondPaymentApprovel == 'rejected') {
+          content = (
+            <div class="shadow-lg rounded-lg bg-white mx-auto m-8 p-4 notification-box flex">
+            <div class="pr-2">
+              <svg
+                class="fill-current text-green-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+              >
+                <path
+                  class="heroicon-ui"
+                  d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm pb-2">
+                Notification
+              </div>
+              <div class="text-sm text-gray-600  tracking-tight ">
+                Sorry,Your second payment validation failed .  
+                <div>
+                <button onClick={() => handleSecondRetry()} className='text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 mt-2'>Retry</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          );
+          notification = <div style={{ color: 'red' }}>Second Payment Status :Rejected</div>;
+        }
+        else if (secondPaymentApprovel == 'approved') {
+          content = (
+            <div class="shadow-lg rounded-lg bg-white mx-auto m-8 p-4 notification-box flex">
+            <div class="pr-2">
+              <svg
+                class="fill-current text-green-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+              >
+                <path
+                  class="heroicon-ui"
+                  d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm pb-2">
+                Notification
+              </div>
+              <div class="text-sm text-gray-600  tracking-tight ">
+                Good Job,Your successfuly compeleted all Task .  
+              </div>
+            </div>
+          </div>
+          );
+          notification = <div style={{ color: 'green' }}>Second Payment Status :approved</div>;
+        }
+        else if (firstPaymentApprovel === 'approved') {
           content = (
             <div className="border rounded-md mb-1 mt-10">
             <button 
@@ -492,24 +604,13 @@ export default function Accordion(props) {
             <div>
               <div class="text-sm pb-2">
                 Notification
-                {/* <span class="float-right">
-                  <svg
-                    class="fill-current text-gray-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="22"
-                    height="22"
-                  >
-                    <path
-                      class="heroicon-ui"
-                      d="M16.24 14.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 0 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12l2.83 2.83z"
-                    />
-                  </svg>
-                </span> */}
+               
               </div>
               <div class="text-sm text-gray-600  tracking-tight ">
               Rejected by admin
-              <button>retry</button>
+              <div>
+                <button onClick={() => handleFirstRetry()} className='text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 mt-2'>Retry</button>
+                </div>
               </div>
             </div>
           </div>
@@ -679,7 +780,7 @@ export default function Accordion(props) {
         </div> 
         ) :(
           <div>
-            <h1>{firstPaymentApprovel} staus    ..... {userId}</h1>
+           
             
           {notification}
           {content}
