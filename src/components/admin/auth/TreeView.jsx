@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useMemo } from 'react';
 import DataTable from 'react-data-table-component'; 
 import { BASE_URI} from '../../../../config/keys-dev';
+import FilterComponent from './FilterComponent';
 
 
 
 export default function TreeView() {
-    const [apidata, setData] = useState(null);
+    const [apidata, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 // const expandableRows= true;
 // const	expandOnRowClicked=false;
@@ -54,7 +55,30 @@ useEffect(() => {
     ];
     
     const ExpandedComponent = ( apidata ) => <pre>{JSON.stringify(apidata.data, null, 2)}</pre>;
- 
+    const [filterText, setFilterText] = useState("");
+    const [resetPaginationToggle, setResetPaginationToggle] = useState(false );
+    const filteredItems = apidata.filter(
+        item =>
+          JSON.stringify(item)
+            .toLowerCase()
+            .indexOf(filterText.toLowerCase()) !== -1
+      );
+      const subHeaderComponent = useMemo(() => {
+        const handleClear = () => {
+          if (filterText) {
+            setResetPaginationToggle(!resetPaginationToggle);
+            setFilterText("");
+          }
+        };
+    
+        return (
+          <FilterComponent
+            onFilter={e => setFilterText(e.target.value)}
+            onClear={handleClear}
+            filterText={filterText}
+          />
+        );
+      }, [filterText, resetPaginationToggle]);
 
 
     return (
@@ -219,10 +243,12 @@ useEffect(() => {
                     <DataTable
                     // title="Node List"
                     columns={columns}
-                    data={apidata}
+                    data={ filteredItems}
                     expandableRows={true}
                     expandableRowsComponent={ExpandedComponent}
                     expandOnRowClicked={true}
+                    subHeader
+                    subHeaderComponent={subHeaderComponent}
                     // expandOnRowDoubleClicked={expandOnRowDoubleClicked}
                     // expandableRowsHideExpander={expandableRowsHideExpander}
                     pagination

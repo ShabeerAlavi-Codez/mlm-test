@@ -54,7 +54,7 @@ export default function Accordion(props) {
         fetchData(); // Call the fetch function on component mount
       }, []); 
 
-     const {userId,name,mobile,email,firstPaymentApprovel,firstPaymentStatus,secondPaymentApprovel,secondPaymentStatus,bankDetailsStatus,ref_upiId,ref_node, ref_accNo,ref_ifsc, ref_uMobile,ref_node_code,upiID} = useSelector(state => state.register)
+     const {userId,name,mobile,email,firstPaymentApprovel,firstPaymentStatus,secondPaymentApprovel,secondPaymentStatus,bankDetailsStatus,ref_upiId,ref_node, ref_accNo,ref_ifsc, ref_uMobile,ref_node_code,upiID,maturedNode} = useSelector(state => state.register)
     // const{ref_upiId,isMaturedNode,maturedNode,nodeId,ref_node,ref_node_code}=useSelector(state=>state.nodelist)
      //let nodelist=useSelector(state=>state.nodelist);
       // Use ref_node here (e.g., conditional rendering)
@@ -370,7 +370,39 @@ export default function Accordion(props) {
         let content;
         let notification;
 
-        if (secondPaymentApprovel == 'requested') {
+        if(maturedNode.length ==2 ){
+          content = (
+            <div class="shadow-lg rounded-lg bg-white mx-auto m-8 p-4 notification-box flex">
+            <div class="pr-2">
+              <svg
+                class="fill-current text-green-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+              >
+                <path
+                  class="heroicon-ui"
+                  d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm pb-2">
+                Notification
+              </div>
+              <div class="text-sm text-gray-600  tracking-tight ">
+               Thank you for task compeletion   {maturedNode.length}
+                <div>
+                <button onClick={() => handleSecondRetry()} className='text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 mt-2'>Retry</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          );
+          notification = <div style={{ color: 'red' }}>Task Status : Completed</div>;
+        }else if (secondPaymentApprovel == 'requested') {
           content = (
             <div class="shadow-lg rounded-lg bg-white mx-auto m-8 p-4 notification-box flex">
             <div class="pr-2">

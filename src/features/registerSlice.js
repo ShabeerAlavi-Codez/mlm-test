@@ -19,6 +19,7 @@ const initialState ={
     ref_accNo:"9999 2024 20241",
    ref_ifsc:"ifsc",
    ref_uMobile:"799999999",
+   maturedNode:[],
     status: 'idle',
     error: null
 }
@@ -118,7 +119,8 @@ const registerSlice =createSlice({
             state.ref_ifsc=action.payload && action.payload.ref_ifsc,
             state.ref_accNo=action.payload && action.payload.ref_accNo,
             state.ref_upiId=action.payload&& action.payload.ref_upiId,
-            state.upiID=action.payload&& action.payload.UpiId
+            state.upiID=action.payload&& action.payload.UpiId,
+            state.maturedNode=action.payload.maturedNode
         })
         .addCase(signout.fulfilled, (state, action) => {
           // Clear user data on successful logout (optional)
@@ -147,6 +149,7 @@ const registerSlice =createSlice({
           state.ref_accNo=action.payload && action.payload.ref_accNo,
           state.ref_node_code=action.payload && action.payload.ref_node_code,
           state.ref_node=action.payload.ref_node,
+          state.maturedNode=action.payload.maturedNode,
           state.firstPaymentApprovel=action.payload.firstPaymentApprovel
       })
        

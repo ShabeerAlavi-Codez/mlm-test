@@ -12,6 +12,7 @@ import Settings from './components/admin/auth/Settings';
 import Approval from './components/admin/auth/Approval';
 import PrivateRoute from './components/auth/PrivateRoute';
 import AdminRoute from './components/admin/auth/AdminRoute';
+import Users from './components/admin/auth/Users';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/notification" element={<PrivateRoute><Notification/></PrivateRoute>} />
             <Route path="/alogin" element={<ALogin/>} />
             <Route path="/adashboard" element={<AdminRoute><Adashbord /></AdminRoute>} />
+            <Route path="/umgt" element={<AdminRoute><Users /></AdminRoute>} />
             <Route path="/nodeview" element={<AdminRoute><TreeView /></AdminRoute>} />
             <Route path="/approval" element={<AdminRoute><Approval /></AdminRoute>} />
             <Route path="/settings" element={<AdminRoute><Settings /></AdminRoute>} />

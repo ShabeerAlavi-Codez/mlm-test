@@ -1,17 +1,32 @@
+import { useDispatch,useSelector } from 'react-redux';
+import { signout } from '../../../features/registerSlice'; 
+import { useNavigate } from 'react-router-dom';
 
 
-function sideBar() {
+export default function SideBar() {
+    const navigate=useNavigate();
+    const dispatch=useDispatch();
+
+    const handleLogout = async () => {
+        try {
+          await dispatch(signout()); // Dispatch the signout action
+          navigate('/'); // Navigate to the login route after successful logout
+        } catch (error) {
+          console.error('Error during logout:', error);
+          // Handle errors here (optional: display error message to user)
+        }
+      };
   return (
-    <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
-            <div className="space-y-3">
-                <div className="flex items-center">
+    <>
+            
+                {/* <div className="flex items-center">
                     <h2 className="text-xl font-bold text-white">Admin Panel</h2>
-                </div>
+                </div> */}
                 <div className="flex-1">
                     <ul className="pt-2 pb-4 space-y-1 text-sm">
                         <li className="rounded-sm">
                             <a
-                                href="#"
+                                href="/adashboard"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -58,10 +73,7 @@ function sideBar() {
                                 href="#"
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
-                                {/* <svg width="100px" 
-                                height="100px" 
-                                viewBox="0 0 24 24" className="w-6 h-6 text-gray-100"  version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M512 64l100.266667 76.8 123.733333-17.066667 46.933333 117.333334 117.333334 46.933333-17.066667 123.733333L960 512l-76.8 100.266667 17.066667 123.733333-117.333334 46.933333-46.933333 117.333334-123.733333-17.066667L512 960l-100.266667-76.8-123.733333 17.066667-46.933333-117.333334-117.333334-46.933333 17.066667-123.733333L64 512l76.8-100.266667-17.066667-123.733333 117.333334-46.933333 46.933333-117.333334 123.733333 17.066667z" fill="#8BC34A" /><path d="M738.133333 311.466667L448 601.6l-119.466667-119.466667-59.733333 59.733334 179.2 179.2 349.866667-349.866667z" fill="#CCFF90" /></svg> */}
+                               
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-6 h-6 text-gray-100"
@@ -99,6 +111,28 @@ function sideBar() {
                                     />
                                 </svg>
                                 <span className="text-gray-100">Reports</span>
+                            </a>
+                        </li>
+                        <li className="rounded-sm">
+                            <a
+                                href="/umgt"
+                                className="flex items-center p-2 space-x-3 rounded-md"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-6 h-6 text-gray-100"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                                    />
+                                </svg>
+                                <span className="text-gray-100">Users</span>
                             </a>
                         </li>
                         <li className="rounded-sm">
@@ -152,9 +186,7 @@ function sideBar() {
                         </li>
                     </ul>
                 </div>
-            </div>
-        </div>
+            
+        </>
   )
 }
-
-export default sideBar
