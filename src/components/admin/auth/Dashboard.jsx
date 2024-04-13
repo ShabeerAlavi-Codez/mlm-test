@@ -73,10 +73,26 @@ export default function Dashboard() {
                 </div>
                 <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
                     <div className="text-sm font-medium text-gray-500 truncate">
-                        Pending approval
+                       Ist Payment for approval
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-green-900">
                     {apidata.fapproval}
+                    </div>
+                </div>
+                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                    <div className="text-sm font-medium text-gray-500 truncate">
+                       IIst Payment for approval
+                    </div>
+                    <div className="mt-1 text-3xl font-semibold text-green-900">
+                    {apidata.sapproval}
+                    </div>
+                </div>
+                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                    <div className="text-sm font-medium text-gray-500 truncate">
+                       IIst Payment Pending
+                    </div>
+                    <div className="mt-1 text-3xl font-semibold text-green-900">
+                    {apidata.spending}
                     </div>
                 </div>
                 <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">

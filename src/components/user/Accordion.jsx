@@ -22,6 +22,7 @@ export default function Accordion(props) {
      const [isLoading, setIsLoading] = useState(false);
      const [qr, setQr]=useState('')
      const [upiId,setUpiId]=useState('');
+     const [fullname,setFullname]=useState('');
      const [accNo,setAccno]=useState('');
      const [ifsc,setIfsc]=useState('');
      const [uMobile,setUmobile]=useState('');
@@ -66,6 +67,9 @@ export default function Accordion(props) {
 
         const onchangeUpi=(e)=>{
             setUpiId(e.target.value)
+          }
+          const onchangeFname=(e)=>{
+            setFullname(e.target.value)
           }
           const onchangeAccno=(e)=>{
             setAccno(e.target.value)
@@ -254,6 +258,7 @@ export default function Accordion(props) {
     formData.append('userId', props.userId);
     formData.append('name', props.name);
     formData.append('mobile', props.mobile);
+    formData.append('fullname', fullname);
     formData.append('upiId', upiId);
     formData.append('ifsc', ifsc);
     formData.append('accNo', accNo);
@@ -713,6 +718,16 @@ export default function Accordion(props) {
                        
                         
                         <div>
+                        <div style={{display:"flex"}}>
+                                <label>Full Name :</label>
+                                <input
+                                type="text" 
+                                value={fullname}
+                                onChange={onchangeFname}
+                                placeholder="Full Name"
+                                className="mx-2"
+                                required  />
+                            </div>
                             <div style={{display:"flex"}}>
                                 <label>IFSC Number :</label>
                                 <input
