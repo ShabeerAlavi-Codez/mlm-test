@@ -506,7 +506,7 @@ export default function Accordion(props) {
                 onClick={props.toggleAccordion} 
                 disabled={true}
             > 
-                <h2 className={`text-2xl mb-2 mx-auto text-gray-500`}>Step 1</h2>  
+                <h2 className={`text-2xl  mx-auto text-gray-500`}>Step 1</h2>  
                 <span className={`float-right transform  rotate-0 transition-transform duration-300`}> 
                     &#9660; 
                 </span> 
@@ -685,32 +685,64 @@ export default function Accordion(props) {
        
     return ( 
         <>
+        
         {!firstPaymentStatus?(
-        <div className="border rounded-md mb-1"> 
+        <div className=" rounded-3xl  mb-20 mt-60 "> 
             <button 
-                className={`w-full p-4 text-left bg-gray-200  
-                hover:bg-gray-300 transition duration-300 
+                className={`w-full p-4 text-left rounded-lg bg-black  
+                hover:bg-blue-900 transition duration-300 
                 ${props.disabled ? 'text-gray-500' : ''}`}
                 onClick={props.toggleAccordion} 
                 disabled={props.disabled}
             > 
-               <h2 className={`text-2xl mb-2 mx-auto  ${props.disabled ? 'text-gray-500' : 'text-green-800 '}`}>{props.title} </h2>  
-                <span className={`float-right transform ${props.isOpen ?  
-                                 'rotate-180' : 'rotate-0'}  
-                                 transition-transform duration-300`}> 
-                    &#9660; 
-                </span> 
+              <div className="flex justify-between items-center">
+    <h2 className={`text-2xl mb-2 ${props.disabled ? 'text-gray-500' : 'text-white'}`}>
+        {props.title}
+    </h2>
+    <span className={`ml-2 text-white inline-block transform ${props.isOpen ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`}>
+        &#9660;
+    </span>
+</div>
+
             </button> 
             {props.isOpen && ( 
-                <div className="p-4 bg-white"> 
-                    {props.data} 
+                <div className="p-4 bg-orange-50 shadow-lg">
+                  <div className="container mx-auto py-8">
+      <div className="flex flex-wrap">
+        <div className="w-full md:w-1/2">
+          {/* First column with image */}
+          {props.data} 
                     <QRCode
                     className="mr-2 p-2 border-2 border-red-500"
                     size={256}
                     style={{ height: "155", maxWidth: "200", width: "155" }}
                     value={`upi://pay?pa=${qr}`}
                     viewBox={`0 0 256 256`}
-                    />
+                    />        </div>
+        <div className="w-full md:w-1/2">
+          {/* Second column with form */}
+          <form action="#" method="POST" className="mx-auto max-w-sm">
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+              <input type="text" id="name" name="name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+              <input type="email" id="email" name="email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Message:</label>
+              <textarea id="message" name="message" rows="4" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            </div>
+            <div className="flex items-center justify-center">
+              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+                   
                     
                     <p>user name:{props.name} </p>
 
@@ -825,7 +857,10 @@ export default function Accordion(props) {
                 </button>
             
         </div> 
+        
         ) :(
+        
+        
           <div>
            
             

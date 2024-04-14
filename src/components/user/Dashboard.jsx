@@ -56,7 +56,7 @@ export default function Dashboard() {
         
     return (
 
-    <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+    <div className="px-0 mx-auto sm:px-6 lg:px-0 max-w-7xl">
         <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
             </h2>
@@ -80,16 +80,21 @@ export default function Dashboard() {
                         mobile={mobile}
                     /> 
             </div> 
-        
-        <p className="text-center text-gray-600 textbase mt-9">
-            Still have questions? 
-           <a href='#' ><span className="cursor-pointer font-medium text-tertiary transition-all duration-200 hover:text-tertiary focus:text-tertiary hover-underline">Contact
-                our support
-            </span> </a>
-        </p>
-        <a href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202." class="float" target="_blank">
-            <i class="fa fa-whatsapp my-float"></i>
+            <div className="z-30">
+        <a href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202." class="float z-50" target="_blank">
+            <i class="fa fa-whatsapp my-float z-auto"></i>
         </a>
+        </div> 
+
+            <footer className="fixed  bottom-0 w-full bg-gray-800 text-white py-2 text-center">
+        <p className="text-sm">Still have questions? <a href='#' ><span className="cursor-pointer font-medium text-tertiary transition-all duration-200 hover:text-tertiary focus:text-tertiary hover-underline">Contact
+                our support
+            </span> </a> </p>
+      </footer>
+      
+            
+           
+    
     </div>
 
     );
