@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
-    "@tailwindcss/forms": "^0.5.7",
     "axios": "^1.6.7",
     "fslightbox-react": "^1.7.6",
     "lodash": "^4.17.21",
@@ -27,6 +26,7 @@
     "tesseract.js": "^5.0.5"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",

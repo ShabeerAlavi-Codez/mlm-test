@@ -499,118 +499,133 @@ export default function Accordion(props) {
         }
         else if (firstPaymentApprovel === 'approved') {
           content = (
-            <div className="border rounded-md mb-1 mt-10">
+            <div className="absolute top-10 ">
+              <div className=" rounded-3xl  mb-20 "> 
             <button 
-                className={`w-full p-4 text-left bg-gray-200  
-                hover:bg-gray-300 transition duration-300 text-gray-500`}
+                className={`w-full p-4 text-left rounded-lg bg-black  
+                hover:bg-blue-900 transition duration-300 text-gray-500`}
                 onClick={props.toggleAccordion} 
                 disabled={true}
             > 
-                <h2 className={`text-2xl  mx-auto text-gray-500`}>Step 1</h2>  
-                <span className={`float-right transform  rotate-0 transition-transform duration-300`}> 
-                    &#9660; 
-                </span> 
+              <div className="flex justify-between  items-center">
+    <h2 className={`text-2xl mb-2 text-gray-500`}>
+    Step 1
+    </h2>
+    <span className={`ml-2 text-white inline-block transform 'rotate-0 transition-transform duration-300`}>
+        &#9660;
+    </span>
+</div>
+
             </button> 
+              </div>
+          
             <button 
-                className={`w-full p-4 text-left bg-gray-200  
-                hover:bg-gray-300 transition duration-300 
-                ${secondPaymentStatus ? 'text-gray-500' : ''}`}
+                className={`w-full p-4 text-left rounded-lg bg-black  
+                hover:bg-blue-900 transition duration-300 
+                ${props.disabled ? 'text-gray-500' : ''}`}
                 onClick={props.toggleAccordion} 
                 //disabled={secondPaymentStatus}
             > 
-                <h2 className={`text-2xl mb-2 mx-auto  ${secondPaymentStatus ? 'text-gray-500' : 'text-green-800 '}`}>Step 2</h2>  
-                <span className={`float-right transform ${firstPaymentStatus ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`}> 
+             <div className="flex justify-between  items-center">
+              <h2 className={`text-2xl mb-2 ${secondPaymentStatus ? 'text-gray-500' : 'text-white'}`}>
+              Step 2
+              </h2>
+              <span className={`float-right transform ${firstPaymentStatus ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`}> 
                     &#9660; 
                 </span> 
+              </div>
+               
             </button> 
             {props.isOpen && ( 
-                <div className="p-4 bg-white"> 
-                    {props.data} 
-                    <QRCode
-                        className="mr-2 p-2 border-2 border-red-500"
-                        size={256}
-                        style={{ height: "155", maxWidth: "200", width: "155" }}
-                        value={`upi://pay?pa=${ref_upiId}`}
-                        viewBox={`0 0 256 256`}
-                    />
-                    <p>user name:{props.name}</p>
-                    <p><span style={{color:"green"}}>{ref_node}</span>'s UPI Id (refferal):- <span style={{color:"red"}}>{ref_upiId}</span></p>
-                    <form onSubmit={handlUpload2} encType="multipart/form-data">
-                        {props.isIfsc && (
-                            <div>
-                               <div style={{display:"flex"}}>
-                                    <label>Full Name</label>
-                                    <input
-                                        type="text" 
-                                        value={ref_node}
-                                        className="mx-2"
-                                    />
-                                </div>
-                                <div style={{display:"flex"}}>
-                                    <label>IFSC Number :</label>
-                                    <input
-                                        type="text" 
-                                        value={ref_ifsc}
-                                        className="mx-2"
-                                    />
-                                </div>
-                                <div style={{display:"flex"}}>
-                                    <label>Account Number :</label>
-                                    <input
-                                        type="text" 
-                                        value={ref_accNo}
-                                        className="mx-2" 
-                                        required
-                                    />
-                                </div>
-                                <div style={{display:"flex"}}>
-                                    <label>Gpay/PhonePe mobile Number :</label>
-                                    <input
-                                        type="text" 
-                                        value={ref_uMobile}
-                                        className="mx-2" 
-                                        required
-                                    />
-                                </div>
-                            </div>
-                        )}
-                        <div className="float-right">
-                            {props.isCount && (
-                                <CountdownCircleTimer
-                                    isPlaying
-                                    duration={6000}
-                                    size={75}
-                                    colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                                    colorsTime={[100, 60, 30, 0]}
-                                    onComplete={() => ({ shouldRepeat: false, delay: 60 })}
-                                >
-                                    {renderTime}
-                                </CountdownCircleTimer>
-                            )}
+                  <div className="p-4 bg-orange-50 shadow-lg">
+                  <div className="container mx-auto py-8">
+                    <div className="flex flex-wrap">
+                      <div className="w-full md:w-1/2">
+                        <div class="max-w-lg mx-auto px-10 py-10  bg-white shadow-md rounded-lg overflow-hidden">
+                          {/* First column with image */}
+                          {props.data} 
+                          <QRCode
+                            className="mr-2 p-2 border-2 border-red-500"
+                            size={256}
+                            style={{ height: "155", maxWidth: "200", width: "155" }}
+                            value={`upi://pay?pa=${ref_upiId}`}
+                            viewBox={`0 0 256 256`}
+                          />
+                            <p><span style={{color:"green"}}>{ref_node}</span>'s UPI Id (refferal):- <span style={{color:"red"}}>{ref_upiId}</span></p>
                         </div>
-                        <label
-                        for="form"
-                        className="mb-2 inline-block text-neutral-700 dark:text-neutral-200">
-                        Upload the screenshot</label> 
-                       
-                        <div style={{display:"flex"}}>
-                 
-                        <input
-                         type="file" 
-                         accept="image/*"
-                         name="image"
-                         ref={inputRef}
-                         onChange={handleFileSelectionChange2}
-                         className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-                         required />
-                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          type="submit" disabled={canSubmit2} >
-                            {isLoading ? 'Processing...' : 'Upload'}
-                        </button>
+                      </div>
+                      
+                        {/* Second column with form */}
+                        <div className="w-full md:w-1/2">
+                          <div class="max-w-sm mx-auto px-10 py-10  bg-white shadow-md rounded-lg overflow-hidden">
+                            <form onSubmit={handlUpload2} encType="multipart/form-data">
+                             {props.isIfsc && (
+                              <>
+                                <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Full Name:</label>
+                                <input type="text" value={ref_node} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readOnly />
+                              </div>
+                              <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">IFSC Number:</label>
+                                <input type="text" value={ref_ifsc} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readOnly />
+                              </div>
+                              <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Account Number :</label>
+                                <input type="text" value={ref_accNo} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readOnly />
+                              </div>
+                              <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Gpay/PhonePe mobile Number :</label>
+                                <input type="text" value={ref_uMobile} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readOnly />
+                              </div>
+                              </>
+                            
+                              )}
+                              
+                    <label
+                                for="form"
+                                className="mb-2 inline-block text-black ">
+                                Upload the screenshot</label> 
+                               
+                                <div style={{display:"flex"}}>
+                         
+                                <input
+                                 type="file" 
+                                 accept="image/*"
+                                 name="image"
+                                 ref={inputRef}
+                                 onChange={handleFileSelectionChange2}
+                                 className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                     required
+                     />
+                                </div>
+                                <br/>
+                                <button className="bg-blue-500 w-60 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                  type="submit" disabled={canSubmit2} >
+                                    {isLoading ? 'Processing...' : 'Upload'}
+                                </button>
+                                <div className="message text-red font-bold" >{message}</div><br/><br/>
+        
+                    <div className="float-right">
+                                {props.isCount?
+                                 <CountdownCircleTimer
+                                 isPlaying
+                                 duration={6000}
+                                 size={75}
+                                 colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                                 colorsTime={[100, 60, 30, 0]}
+                                 onComplete={() => ({ shouldRepeat: false, delay: 60 })}
+                                 >
+                             {renderTime}
+                             </CountdownCircleTimer> : ''}
+                      </div>
+                            </form>
+                          
+                          </div>
                         </div>
-                        <div className="message text-red font-bold" >{message}</div>
-                    </form>
-                </div> 
+                        
+                    </div>
+                  </div>	
+                 </div>
             )}
 <button  title="Contact Sale"
             className="fixed z-90 bottom-10 right-8 bg-green-500 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">
@@ -687,8 +702,8 @@ export default function Accordion(props) {
         <>
         
         {!firstPaymentStatus?(
-          <div className="mt-96">
-            <br/><br/><br/><br/><br/><br/>
+          <div className="absolute top-10">
+            <br/><br/><br/><br/>
         <div className=" rounded-3xl  mb-20 "> 
             <button 
                 className={`w-full p-4 text-left rounded-lg bg-black  
@@ -780,7 +795,9 @@ export default function Accordion(props) {
                          name="image"
                          ref={inputRef}
                          onChange={handleFileSelectionChange}
-                         className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" />
+                         className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                         required
+                         />
                         </div>
                         <br/>
                         <button className="bg-blue-500 w-60 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
