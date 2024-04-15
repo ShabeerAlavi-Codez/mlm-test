@@ -687,7 +687,9 @@ export default function Accordion(props) {
         <>
         
         {!firstPaymentStatus?(
-        <div className=" rounded-3xl  mb-20 mt-60 "> 
+          <div className="mt-96">
+            <br/><br/><br/><br/><br/><br/>
+        <div className=" rounded-3xl  mb-20 "> 
             <button 
                 className={`w-full p-4 text-left rounded-lg bg-black  
                 hover:bg-blue-900 transition duration-300 
@@ -695,7 +697,7 @@ export default function Accordion(props) {
                 onClick={props.toggleAccordion} 
                 disabled={props.disabled}
             > 
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between  items-center">
     <h2 className={`text-2xl mb-2 ${props.disabled ? 'text-gray-500' : 'text-white'}`}>
         {props.title}
     </h2>
@@ -710,46 +712,115 @@ export default function Accordion(props) {
                   <div className="container mx-auto py-8">
       <div className="flex flex-wrap">
         <div className="w-full md:w-1/2">
+        <div class="max-w-lg mx-auto px-10 py-10  bg-white shadow-md rounded-lg overflow-hidden">
           {/* First column with image */}
-          {props.data} 
+          {props.data} <br/>
                     <QRCode
-                    className="mr-2 p-2 border-2 border-red-500"
+                    className="mr-2 mt-5 p-2 border-2 border-red-500"
                     size={256}
                     style={{ height: "155", maxWidth: "200", width: "155" }}
                     value={`upi://pay?pa=${qr}`}
                     viewBox={`0 0 256 256`}
-                    />        </div>
+                    />       
+                    
+             </div>
+             </div>
         <div className="w-full md:w-1/2">
+        <div class="max-w-sm mx-auto px-10 py-10  bg-white shadow-md rounded-lg overflow-hidden">
+
           {/* Second column with form */}
-          <form action="#" method="POST" className="mx-auto max-w-sm">
+          <form onSubmit={handlUpload} encType="multipart/form-data">
             <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
-              <input type="text" id="name" name="name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+              <input type="text" value={props.name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readOnly />
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-              <input type="email" id="email" name="email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+              <input type="text"  value={fullname}
+                                onChange={onchangeFname} placeholder="Enter your full name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
             </div>
-            <div className="mb-6">
-              <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Message:</label>
-              <textarea id="message" name="message" rows="4" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">IFSC Number</label>
+              <input type="text" value={ifsc} placeholder="Enter your bank ifsc code"
+                                onChange={onchangeIfsc} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
             </div>
-            <div className="flex items-center justify-center">
+
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Account Number</label>
+              <input type="text"  value={accNo}
+                                onChange={onchangeAccno} placeholder="Enter your account number" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Google Pay/PhonePe Number</label>
+              <input type="text" value={uMobile}
+                                onChange={onchangeUmobile} placeholder="Enter your google pay/phonepe number" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+          
+
+            <div className="mb-4">
+            {error && (<div style={{display:"flex"}}>
+                            <p className="error"><strong>{error}</strong></p> </div>)}
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">UPI ID</label>
+              <input type="text"   value={upiId}
+                                onChange={onchangeUpi} placeholder="Enter your upi id" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+
+              <label
+                        for="form"
+                        className="mb-2 inline-block text-black ">
+                        Upload the screenshot</label> 
+                       
+                        <div style={{display:"flex"}}>
+                 
+                        <input
+                         type="file" 
+                         accept="image/*"
+                         name="image"
+                         ref={inputRef}
+                         onChange={handleFileSelectionChange}
+                         className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" />
+                        </div>
+                        <br/>
+                        <button className="bg-blue-500 w-60 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          type="submit" disabled={canSubmit1} >
+                            {isLoading ? 'Processing...' : 'Upload'}
+                        </button>
+                        <div className="message text-red font-bold" >{message}</div><br/><br/>
+
+            <div className="float-right">
+                        {props.isCount?
+                         <CountdownCircleTimer
+                         isPlaying
+                         duration={6000}
+                         size={75}
+                         colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                         colorsTime={[100, 60, 30, 0]}
+                         onComplete={() => ({ shouldRepeat: false, delay: 60 })}
+                         >
+                     {renderTime}
+                     </CountdownCircleTimer> : ''}
+
+                        </div>
+          
+          
+            {/* <div className="flex items-center justify-center">
               <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
     </div>
-
+</div>
                    
                     
-                    <p>user name:{props.name} </p>
+                    {/* <p>user name:</p> */}
 
-                    <form onSubmit={handlUpload} encType="multipart/form-data">
+                    {/* <form onSubmit={handlUpload} encType="multipart/form-data"> */}
                        
                         
-                        <div>
+                        {/* <div>
                         <div style={{display:"flex"}}>
                                 <label>Full Name :</label>
                                 <input
@@ -805,9 +876,9 @@ export default function Accordion(props) {
 
 
                         
-                        </div>
+                        </div> */}
                         
-                        <div className="float-right">
+                        {/* <div className="float-right">
                         {props.isCount?
                          <CountdownCircleTimer
                          isPlaying
@@ -819,32 +890,12 @@ export default function Accordion(props) {
                          >
                      {renderTime}
                      </CountdownCircleTimer> : ''}
-                       
 
-                        </div>
+                        </div> */}
 
-                        <label
-                        for="form"
-                        className="mb-2 inline-block text-neutral-700 dark:text-neutral-200">
-                        Upload the screenshot</label> 
-                       
-                        <div style={{display:"flex"}}>
-                 
-                        <input
-                         type="file" 
-                         accept="image/*"
-                         name="image"
-                         ref={inputRef}
-                         onChange={handleFileSelectionChange}
-                         className="relative m-0 block min-w-200  rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary" />
-                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          type="submit" disabled={canSubmit1} >
-                            {isLoading ? 'Processing...' : 'Upload'}
-                        </button>
-                        </div>
-                        <div className="message text-red font-bold" >{message}</div>
+                      
                         
-                    </form>
+                    {/* </form> */}
                     
                 </div> 
             )} 
@@ -857,6 +908,7 @@ export default function Accordion(props) {
                 </button>
             
         </div> 
+        </div>
         
         ) :(
         
