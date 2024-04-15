@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+require('@tailwindcss/forms')({ strategy: 'class' })
+
 export default {
   content: [
     "./index.html",

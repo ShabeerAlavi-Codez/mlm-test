@@ -58,13 +58,48 @@ export default function Login() {
   
   return (
     <>
-    
-    {/* <!-- Coming Soon Header --> */}
-        <div class="mt-12 text-center">
+      <div class="mt-12 text-center">
             <h2 class="text-sm text-gray-500">📱✨ Exciting news ahead! 🚀 Stay tuned for our iOS and Android app! 🎉</h2>
         </div>
+        <div class="relative mx-auto w-full max-w-md bg-dark px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10 border-2 border-blue-500 ">
+
+      {/* <!-- Coming Soon Header --> */}
+    
    {/* <!-- Login  div--> */}
-        <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center  sm:py-6">
+    <div class="w-full">
+        <div class="text-center">
+            <h1 class="text-3xl font-semibold text-gray-900">Sign in</h1>
+            <p class="mt-2 text-gray-500">Sign in below to access your account</p>
+        </div>
+        <div class="mt-5">
+            <form onSubmit={handleLogin}>
+            <p className="text-red-700 text-center">{errormsg}</p>
+
+                <div class="relative mt-6">
+                    <input type="email" id="email" value={formData.email} onChange={handleChange} name="email" placeholder="Email Address" class="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" required />
+                    <label for="email" class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Email Address</label>
+                </div>
+                <div class="relative mt-6">
+                    <input type="password" autoComplete="off" id="password" value={formData.password} onChange={handleChange} name="password" placeholder="Password" class="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" required />
+                    <label for="password" class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Password</label>
+                </div>
+                <div class="my-6">
+                    <button type="submit" class="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none hover:bg-blue-800">{isLoading ? 'Processing...' : 'Sign in'}</button>
+                </div>
+                <p class="text-center text-sm text-gray-500">Don&#x27;t have an account yet?
+                    <a href="/register"
+                        class="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none"> Sign
+                        up
+                    </a>.
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+    
+
+    {/* ddddddddddddddddddd */}
+        {/* <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center  sm:py-6">
   <div className="relative py-3 sm:max-w-xl sm:mx-auto">
     <div
       className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
@@ -73,10 +108,10 @@ export default function Login() {
     <form onSubmit={handleLogin}>
       <div className="max-w-md mx-auto">
         <div>
-          <h1 className="text-2xl font-semibold">Login</h1>
+          <h1 className="text-2xl font-semibold">Login</h1> */}
            {/* <h1>{count1}</h1> */}
           {/* <button onClick={()=>dispatch(increment())}>add</button> */}
-        </div>
+        {/* </div>
       
         <div className="divide-y divide-gray-200">
           <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
@@ -99,14 +134,14 @@ export default function Login() {
 
       <div className="w-full flex justify-center">
         
-        <a className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="/register">Create Account</a>
+        <a className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="/register">Create Account</a> */}
         {/* <a className="text-indigo-700 hover:text-pink-700 text-sm float-left" href="#">Forgot Password?</a><br></br> */}
 
-      </div>
+      {/* </div>
 
     </div>
   </div>
-</div>
+</div> */}
     </>
    
     
