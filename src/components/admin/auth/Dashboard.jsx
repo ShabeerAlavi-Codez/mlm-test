@@ -99,8 +99,8 @@ export default function Dashboard() {
                     <div className="text-sm font-medium text-gray-500 truncate">
                         Active Users
                     </div>
-                    <div className="mt-1 text-3xl font-semibold text-gray-900">
-                    {apidata.Inactive}
+                    <div className="mt-1 text-3xl font-semibold text-lime-900">
+                    {apidata.active}
                     </div>
                 </div>
                 <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
@@ -108,7 +108,7 @@ export default function Dashboard() {
                         Inactive Users
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-red-900">
-                    {apidata.active}
+                    {apidata.Inactive}
                     </div>
                 </div>
             </div>

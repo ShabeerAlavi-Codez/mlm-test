@@ -6,7 +6,11 @@ export default function Settings() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [cmpUpiId,setCmpUpiId]=useState('');
+    const [isToggled, setIsToggled] = useState(false);
 
+    const handleToggle = () => {
+      setIsToggled(!isToggled);
+    };
     useEffect(() => {
         const fetchData = async () => {
           setIsLoading(true); // Set loading state to true
@@ -191,7 +195,23 @@ export default function Settings() {
                     <div>
                 <input autoComplete="off" id="email" value={cmpUpiId} onChange={onchangeUpi}  name="UpiId" type="text" className="peer placeholder-transparent h-10 w-65 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="" /> 
                 <label htmlFor="email" className="p-4 absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Company UpiId</label>
+
                 <button>sss</button>
+
+                <label className="relative flex justify-between items-center p-2 text-xl">
+        Stop website
+        <input
+          type="checkbox"
+          className="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md"
+          checked={isToggled}
+          onChange={handleToggle}
+        />
+        <span
+          className={`w-16 h-10 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-green-400 ${
+            isToggled ? 'after:w-8 after:h-8 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6' : ''
+          }`}
+        ></span>
+      </label>
                 </div>
                 )}
                 {!isLoading && !apidata && <p>No data available yet.</p>}

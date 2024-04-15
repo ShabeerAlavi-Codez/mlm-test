@@ -119,9 +119,7 @@ export default function Notification() {
                 our support
               </span> </a>
             </p>
-          </div>
-
-
+          </div> 
 
         </div>
       </div>

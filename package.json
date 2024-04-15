@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.7",
+    "fslightbox-react": "^1.7.6",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-countdown-circle-timer": "^3.2.1",

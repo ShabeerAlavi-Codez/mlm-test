@@ -3,6 +3,7 @@ import DataTable from 'react-data-table-component';
 import { addNode,rejCmp } from "../../../features/nodelistSlice";
 import { BASE_URI} from '../../../../config/keys-dev';
 import { useDispatch,useSelector } from 'react-redux';
+import FsLightbox from "fslightbox-react";
 import { signout } from '../../../features/registerSlice'; 
 
 import { useNavigate } from 'react-router-dom';
@@ -13,8 +14,17 @@ export default function Approval() {
     const dispatch=useDispatch()
     const navigate =useNavigate()
     const [apidata, setData] = useState(null);
+    const [toggler, setToggler] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [refresh,setRefresh]=useState(false);
+    const toggleItem = (itemId,st) => {
+        console.log(toggler,"kkkk")
+        setToggler(prevState => ({
+          ...prevState,
+          [itemId]: st // Toggle the state of the item
+        }));
+      };
+    
 // const expandableRows= true;
 // const	expandOnRowClicked=false;
 // const	expandOnRowDoubleClicked=false;
@@ -126,13 +136,24 @@ useEffect(() => {
         },
         {
             name: 'image',
-            cell: (row) => (
+            cell: (row,index) => (
+                <>
+                <button onClick={() => toggleItem(index,true)}>
                 <img
                     src={`${BASE_URI}uploads/${row.userId}.png`}
                     alt="User Image"
                     style={{ width: '50px', height: '50px', cursor: 'pointer' }}
                    // onClick={() => handleImageClick(row.userId)}
                 />
+                </button>
+                <FsLightbox
+				toggler={toggler}
+				sources={[
+					`${BASE_URI}uploads/${row.userId}.png`,
+				]}
+			/>
+                </>
+               
             ),
         },
         {

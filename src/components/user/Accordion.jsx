@@ -265,7 +265,7 @@ export default function Accordion(props) {
     formData.append('uMobile', uMobile);
     formData.append('imgUri', file);
     formData.append('firstPaymentStatus',firstPaymentStatus);
-    formData.append('payment_status',"requsted");
+    formData.append('payment_status',"requested");
     formData.append('payment_amount', 500);
     formData.append('payment_date',new Date());
     formData.append('cmp_upi', qr);
@@ -328,7 +328,7 @@ export default function Accordion(props) {
         formData1.append('ref_node_code', ref_node_code);
         formData1.append('imgUri', file);
         formData1.append('secondPaymentStatus',secondPaymentStatus);
-        formData1.append('payment_status',"requsted");
+        formData1.append('payment_status',"requested");
         formData1.append('payment_amount', 2000);
         formData1.append('payment_date',new Date());
         formData1.append('payment_try',1);

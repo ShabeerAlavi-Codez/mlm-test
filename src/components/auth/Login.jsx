@@ -46,6 +46,9 @@ export default function Login() {
           //setSigninRequestStatus('idle')
           // console.error(err.response.data.errors)
           setErrormsg(err.response.data.errors)
+          // if(err.response.data.info){
+          //   navigate('/smaintance')
+          // }
         } finally {
           setSigninRequestStatus('idle')
           setIsLoading(false)

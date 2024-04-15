@@ -13,6 +13,14 @@ import Approval from './components/admin/auth/Approval';
 import PrivateRoute from './components/auth/PrivateRoute';
 import AdminRoute from './components/admin/auth/AdminRoute';
 import Users from './components/admin/auth/Users';
+import Areport from './components/admin/auth/Areport';
+import Allusrep from './components/admin/auth/Allusrep';
+import Njusrep from './components/admin/auth/Njusrep';
+import AllInUsRep from './components/admin/auth/AllInUsRep';
+import AllActUsRep from './components/admin/auth/AllActUsRep';
+import Pend2Rep from './components/admin/auth/Pend2Rep';
+import Apv1Rep from './components/admin/auth/Apv1Rep';
+import Apv2Rep from './components/admin/auth/Apv2Rep';
 
 const App = () => {
   return (
@@ -26,7 +34,15 @@ const App = () => {
             <Route path="/udashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/notification" element={<PrivateRoute><Notification/></PrivateRoute>} />
             <Route path="/alogin" element={<ALogin/>} />
-            <Route path="/adashboard" element={<AdminRoute><Adashbord /></AdminRoute>} />
+            <Route path="/adashboard" element={<AdminRoute><Adashbord /></AdminRoute>} /> 
+            <Route path="/areport" element={<AdminRoute><Areport/></AdminRoute>} />
+            <Route path="/allusrep" element={<AdminRoute><Allusrep/></AdminRoute>} />
+            <Route path="/njusrep" element={<AdminRoute><Njusrep/></AdminRoute>} />
+            <Route path="/allinusrep" element={<AdminRoute><AllInUsRep/></AdminRoute>} />
+            <Route path="/allactusRep" element={<AdminRoute><AllActUsRep/></AdminRoute>} />
+            <Route path="/pen2rep" element={<AdminRoute><Pend2Rep/></AdminRoute>} />
+            <Route path="/apv1rep" element={<AdminRoute><Apv1Rep/></AdminRoute>} />
+            <Route path="/apv2rep" element={<AdminRoute><Apv2Rep/></AdminRoute>} />
             <Route path="/umgt" element={<AdminRoute><Users /></AdminRoute>} />
             <Route path="/nodeview" element={<AdminRoute><TreeView /></AdminRoute>} />
             <Route path="/approval" element={<AdminRoute><Approval /></AdminRoute>} />

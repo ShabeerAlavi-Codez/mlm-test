@@ -43,29 +43,44 @@ export default function Areport() {
   <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate">
-          Complete User Report
+         <a href="/allusrep">Complete User Report</a> 
           </div>
       </div>
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate">
-              New joining
-          </div>
-         
-      </div>
-      <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
-          <div className="text-sm font-medium text-gray-500 truncate">
-              Pending approval
+          <a href="/njusrep"> New joining </a>
           </div>
          
       </div>
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate">
-              Active Users
-          </div>
+         <a href="apv1rep">Ist Payment for approval</a> 
+         </div>
       </div>
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate">
-              Inactive Users
+          <a href="apv2rep"> IIst Payment for approval </a>
+          </div>
+         
+      </div>
+      <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+          <div className="text-sm font-medium text-gray-500 truncate">
+          
+          <a href="/pen2rep">IIst Payment Pending</a> 
+          </div>
+         
+      </div>
+      
+    
+      <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+          <div className="text-sm font-medium text-gray-500 truncate">
+           <a href="/allactusRep">Active Users</a> 
+          </div>
+      </div>
+      <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+          <div className="text-sm font-medium text-gray-500 truncate"> 
+          <a href="/allinusrep">Inactive Users </a>
+             
           </div>
       </div>
   </div>
