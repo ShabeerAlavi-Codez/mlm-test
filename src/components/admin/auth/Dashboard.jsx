@@ -3,7 +3,7 @@ import { useState ,useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URI} from '../../../../config/keys-dev';
 // import { increment } from "../../features/counterSlice";
-//  import SideBar from './SideBar';
+import SideBar from './SideBar';
 import { useNavigate } from 'react-router-dom'
 import { signout } from '../../../features/registerSlice'; 
 
