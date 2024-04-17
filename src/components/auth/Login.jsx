@@ -98,7 +98,7 @@ export default function Login() {
             </div>
         </div>
         <div className="absolute bottom-20 s order-1 sm:order-2  flex-1 text-center lg:hidden">
-            <div className=" m-6  xl:m-16 bg-contain bg-center bg-no-repeat"
+            <div className=" m-6  xl:m-16  rounded-lg bg-contain bg-center bg-no-repeat"
                 style={{backgroundImage: `url(${img1})`, backgroundSize: 'cover', height:300,width:250, backgroundPosition: 'center'}}>
                 <div style={{color: 'white', fontWeight: 'bold', fontSize: '2rem'}}>
                     {/* Your Trust, Our Priority:
@@ -107,7 +107,7 @@ export default function Login() {
             </div>
         </div>
         <div className="order-1 sm:order-2 flex-1 text-center hidden lg:flex">
-            <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+            <div className="m-12 xl:m-16 w-full rounded-lg  bg-contain bg-center bg-no-repeat"
                 style={{backgroundImage: `url(${img1})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                 <div style={{color: 'white', fontWeight: 'bold', fontSize: '2rem'}}>
                     Your Trust, Our Priority: Crafting a Future Together
