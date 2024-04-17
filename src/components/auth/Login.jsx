@@ -97,9 +97,9 @@ export default function Login() {
                 </div>
             </div>
         </div>
-        <div className="absolute bottom-10 s order-1 sm:order-2  flex-1 text-center lg:hidden">
+        <div className="absolute bottom-9 s order-1 sm:order-2  flex-1 text-center lg:hidden">
             <div className=" m-6  xl:m-16  rounded-lg bg-contain bg-center bg-no-repeat"
-                style={{backgroundImage: `url(${img1})`, backgroundSize: 'cover', height:250,width:250, backgroundPosition: 'center'}}>
+                style={{backgroundImage: `url(${img1})`, backgroundSize: 'cover', height:205,width:250, backgroundPosition: 'center'}}>
                 <div style={{color: 'white', fontWeight: 'bold', fontSize: '2rem'}}>
                     {/* Your Trust, Our Priority:
                     Crafting a Future Together */}
