@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from "react";
 import { signin } from "../../features/registerSlice";
 import Logo3 from '../../assets/logo4.png'
-import img1 from '../../assets/image2.png'
+import img1 from '../../assets/image2.jpeg'
 
 
 export default function Login() {
@@ -97,9 +97,9 @@ export default function Login() {
                 </div>
             </div>
         </div>
-        <div className="absolute bottom-20 s order-1 sm:order-2  flex-1 text-center lg:hidden">
+        <div className="absolute bottom-10 s order-1 sm:order-2  flex-1 text-center lg:hidden">
             <div className=" m-6  xl:m-16  rounded-lg bg-contain bg-center bg-no-repeat"
-                style={{backgroundImage: `url(${img1})`, backgroundSize: 'cover', height:300,width:250, backgroundPosition: 'center'}}>
+                style={{backgroundImage: `url(${img1})`, backgroundSize: 'cover', height:250,width:250, backgroundPosition: 'center'}}>
                 <div style={{color: 'white', fontWeight: 'bold', fontSize: '2rem'}}>
                     {/* Your Trust, Our Priority:
                     Crafting a Future Together */}
@@ -116,7 +116,7 @@ export default function Login() {
         </div>
        
     </div>
-    <div className="absolute bottom-10 text-center" >
+    <div className="absolute bottom-5 text-center" >
            <marquee><h2 className="text-sm text-gray-500"style={{color: 'white', fontWeight: 'bold', fontSize: '1rem'}}>📱✨ Exciting news ahead! 🚀 Stay tuned for our iOS and Android app! 🎉</h2></marquee> 
         </div>
 </div>
