@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 import { BASE_URI} from '../../../../config/keys-dev';
-import SideBar from "./SideBar";
+import sideBar from "./sideBar";
 
 export default function Areport() {
     const [apidata, setData] = useState(null);
@@ -36,7 +36,7 @@ export default function Areport() {
 <div className="flex">
 <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
 <div className="space-y-3">
- <SideBar></SideBar>
+ <sideBar></sideBar>
   </div>
 </div>
 <div className="container mx-auto mt-12">

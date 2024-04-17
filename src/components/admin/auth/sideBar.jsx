@@ -3,7 +3,7 @@ import { signout } from '../../../features/registerSlice';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function SideBar() {
+export default function sideBar() {
     const navigate=useNavigate();
     const dispatch=useDispatch();
 
