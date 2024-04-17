@@ -67,7 +67,7 @@ export default function Login() {
             <div>
                 <img src={Logo3} className="w-72 mx-auto" />
             </div>
-            <div className="mt-12 flex flex-col items-center">
+            <div className="mt-1 md:mt-20 flex flex-col items-center">
                 <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
                 <div className="w-full flex-1 mt-8">
                     <div className="mx-auto max-w-xs">
