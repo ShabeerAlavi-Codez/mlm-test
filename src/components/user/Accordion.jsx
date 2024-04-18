@@ -734,7 +734,7 @@ export default function Accordion(props) {
                     className="mr-2 mt-5 p-2 border-2 border-red-500"
                     size={256}
                     style={{ height: "155", maxWidth: "200", width: "155" }}
-                    value={`upi://pay?pa=${qr}`}
+                    value={`upi://pay?pa=${qr}&am=750&cu=INR`}
                     viewBox={`0 0 256 256`}
                     />       
                     
