@@ -68,16 +68,21 @@ export default function Login() {
                 <img src={Logo3} className="w-72 mx-auto" />
             </div>
             <div className="mt-1 md:mt-20 flex flex-col items-center">
-                <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
+                <h1 className="text-2xl xl:text-3xl font-extrabold">Sign In</h1>
                 <div className="w-full flex-1 mt-8">
+                <p className="text-white-700 text-center mb-2">{errormsg}</p>
+                <form onSubmit={handleLogin}>
+               
                     <div className="mx-auto max-w-xs">
                         <input
-                            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                            type="email" placeholder="Email" />
+                            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white text-gray-500"
+                            type="email" id="email" value={formData.email} onChange={handleChange} name="email"
+                            placeholder="Email"  required />
                         <input
-                            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="password" placeholder="Password" />
-                        <button
+                            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white text-gray-500 mt-5"
+                            type="password" autoComplete="off" id="password" value={formData.password} onChange={handleChange} name="password" placeholder="Password" 
+                            required />
+                        <button type="submit"
                             className="mt-4 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                             <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth="2"
                                 strokeLinecap="round" strokeLinejoin="round">
@@ -85,7 +90,7 @@ export default function Login() {
                                 <circle cx="8.5" cy="7" r="4" />
                                 <path d="M20 8v6M23 11h-6" />
                             </svg>
-                            <span className="ml-3">Sign Up</span>
+                            <span className="ml-3">Sign In</span>
                         </button>
                         {/* <p className="mt-6 text-xs text-gray-600 text-center">
                             I agree to abide by Templatana's
@@ -94,6 +99,7 @@ export default function Login() {
                             <a href="#" className="border-b border-gray-500 border-dotted">Privacy Policy</a>
                         </p> */}
                     </div>
+                </form>
                 </div>
             </div>
         </div>
