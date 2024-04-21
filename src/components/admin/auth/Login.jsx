@@ -83,7 +83,7 @@ export default function ALogin() {
     </form>
       <div className="w-full flex justify-center">
         
-        {/* <a className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="/register">Create Account</a> */}
+        {/* <a  sfsf wrwr className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="/register">Create Account</a> */}
         {/* <a className="text-indigo-700 hover:text-pink-700 text-sm float-left" href="#">Forgot Password?</a><br></br> */}
 
       </div>
