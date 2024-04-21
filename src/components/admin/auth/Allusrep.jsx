@@ -2,7 +2,7 @@ import { useState, useEffect,useMemo } from 'react';
 import DataTable from 'react-data-table-component'; 
 import { BASE_URI} from '../../../../config/keys-dev';
 import FilterComponent from './FilterComponent';
-import sideBar from './sideBar';
+import SideBar from './SideBar';
 
 
 
@@ -170,7 +170,7 @@ useEffect(() => {
         <div className="flex">
         <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
             <div className="space-y-3">
-            <sideBar></sideBar>
+            <SideBar></SideBar>
             </div>
         </div>
         <div className="container mx-auto mt-12">

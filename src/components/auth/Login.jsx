@@ -5,8 +5,6 @@ import { useState } from "react";
 import { signin } from "../../features/registerSlice";
 import Logo3 from '../../assets/logo4.png'
 import img1 from '../../assets/image2.jpeg'
-import "bootstrap/dist/css/bootstrap.min.css"; 
-import "bootstrap/dist/js/bootstrap.bundle.min";
 
 
 export default function Login() {

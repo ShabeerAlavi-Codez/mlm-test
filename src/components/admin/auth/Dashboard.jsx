@@ -3,7 +3,7 @@ import { useState ,useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URI} from '../../../../config/keys-dev';
 // import { increment } from "../../features/counterSlice";
-import sideBar from './sideBar';
+import SideBar from './SideBar';
 import { useNavigate } from 'react-router-dom'
 import { signout } from '../../../features/registerSlice'; 
 
@@ -49,7 +49,7 @@ export default function Dashboard() {
         <div className="flex">
           <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
           <div className="space-y-3">
-           <sideBar></sideBar>
+           <SideBar></SideBar>
             </div>
         </div>
         <div className="container mx-auto mt-12">

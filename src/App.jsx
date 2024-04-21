@@ -28,7 +28,7 @@ const App = () => {
       <div className="min-h-full h-screen flex items-center justify-center">
         <div className="w-full space-y-8 ">
           <Routes>
-            <Route path="/" element={<Login />} /> {/* Exact path not needed for root path */}
+            <Route path="/" element={<ALogin />} /> {/* Exact path not needed for root path */}
             <Route path="/otp" element={<Otp />} />
             <Route path="/register" element={<Register />} />
             <Route path="/udashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
