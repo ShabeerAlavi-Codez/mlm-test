@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 import { BASE_URI} from '../../../../config/keys-dev';
-// import SideBar from "./SideBar";
+ import SideBar from "./SideBar";
 
 export default function Users() {
     const [apidata, setData] = useState(null);
