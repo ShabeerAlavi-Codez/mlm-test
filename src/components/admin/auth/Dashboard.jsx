@@ -47,39 +47,40 @@ export default function Dashboard() {
     return (
 
         <div className="flex">
-          <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
+          <div className="flex flex-col h-screen sticky top-0 p-3 bg-gray-800 shadow w-60">
           <div className="space-y-3">
            <SideBar></SideBar>
             </div>
         </div>
+
         <div className="container mx-auto mt-12">
-            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+            <div className="grid grid-cols-1 gap-5 mb-6 lg:grid-cols-3 sm:gap-4">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
-                        Total users
+                        Total Node users
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-gray-900">
                         
                        <p> {apidata.nodeUser}</p>
                     </div>
                 </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
-                        New joining
+                    Ist Payment Pending
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-blue-900">
                       {apidata.newJoin}
                     </div>
                 </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
-                       Ist Payment for approval
+                      Ist Payment Approval
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-green-900">
                     {apidata.fapproval}
                     </div>
                 </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
                        IIst Payment for approval
                     </div>
@@ -87,7 +88,7 @@ export default function Dashboard() {
                     {apidata.sapproval}
                     </div>
                 </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
                        IIst Payment Pending
                     </div>
@@ -95,17 +96,17 @@ export default function Dashboard() {
                     {apidata.spending}
                     </div>
                 </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
-                        Active Users
+                    Tasks Progressing /Active Users
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-lime-900">
                     {apidata.active}
                     </div>
                 </div>
-                <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
+                <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
-                        Inactive Users
+                    Tasks Completed Users
                     </div>
                     <div className="mt-1 text-3xl font-semibold text-red-900">
                     {apidata.Inactive}
@@ -113,6 +114,8 @@ export default function Dashboard() {
                 </div>
             </div>
         </div>
+        
+        
     </div>
 
          

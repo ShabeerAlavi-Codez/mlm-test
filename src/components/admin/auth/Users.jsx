@@ -32,7 +32,7 @@ export default function Users() {
       }
     return (
         <div className="flex">
-        <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
+        <div className="flex flex-col h-screen sticky top-0 p-3 bg-gray-800 shadow w-60">
             <div className="space-y-3">
                 
                <SideBar></SideBar>

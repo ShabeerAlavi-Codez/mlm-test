@@ -34,7 +34,7 @@ export default function Areport() {
     return (
 
 <div className="flex">
-<div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
+<div className="flex flex-col h-screen sticky top-0 p-3 bg-gray-800 shadow w-60">
 <div className="space-y-3">
  <SideBar></SideBar>
   </div>
@@ -48,7 +48,7 @@ export default function Areport() {
       </div>
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate">
-          <a href="/njusrep"> New joining </a>
+          <a href="/njusrep"> Ist Payment Pending Users</a>
           </div>
          
       </div>
@@ -74,12 +74,12 @@ export default function Areport() {
     
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate">
-           <a href="/allactusRep">Active Users</a> 
+           <a href="/allactusRep">Tasks Progressing /Active Users</a> 
           </div>
       </div>
       <div className="w-full px-4 py-5 bg-white rounded-lg shadow-2xl">
           <div className="text-sm font-medium text-gray-500 truncate"> 
-          <a href="/allinusrep">Inactive Users </a>
+          <a href="/allinusrep">Tasks Completed Users </a>
              
           </div>
       </div>
