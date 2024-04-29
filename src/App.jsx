@@ -17,6 +17,7 @@ import Pend2Rep from './components/admin/report/Pend2Rep';
 import Apv1Rep from './components/admin/report/Apv1Rep';
 import Apv2Rep from './components/admin/report/Apv2Rep';
 import Sotp from './components/common/Sotp';
+import EditUser from './components/admin/auth/EditUsers';
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/apv1rep" element={<AdminRoute><Apv1Rep/></AdminRoute>} />
             <Route path="/apv2rep" element={<AdminRoute><Apv2Rep/></AdminRoute>} />
             <Route path="/umgt" element={<AdminRoute><Users /></AdminRoute>} />
+            <Route path="/edituser" element={<AdminRoute><EditUser /></AdminRoute>} />
             <Route path="/nodeview" element={<AdminRoute><TreeView /></AdminRoute>} />
             <Route path="/approval" element={<AdminRoute><Approval /></AdminRoute>} />
             <Route path="/settings" element={<AdminRoute><Settings /></AdminRoute>} />

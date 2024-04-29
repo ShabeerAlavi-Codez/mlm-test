@@ -20,13 +20,28 @@ export const signup = createAsyncThunk(
     async (initialData, thunkAPI) => {
       try {
         //const res = await axios.post(url, initialData)
-        const res = await axios.post(`${BASE_URI}api/users/register`, initialData)
+        const res = await axios.post(`${BASE_URI}api/admin/register`, initialData)
         return res.data
       } catch (err) {
         return thunkAPI.rejectWithValue({ error: err.message })
       }
     }
   )
+  export const edituser = createAsyncThunk(
+    // The name of the action
+    'auth/edituser',
+    // The payload creator
+    async (initialData, thunkAPI) => {
+      try {
+        //const res = await axios.post(url, initialData)
+        const res = await axios.post(`${BASE_URI}api/admin/edituser`, initialData)
+        return res.data
+      } catch (err) {
+        return thunkAPI.rejectWithValue({ error: err.message })
+      }
+    }
+  )
+
 
   export const signin = createAsyncThunk(
     'auth/signin',
@@ -36,7 +51,7 @@ export const signup = createAsyncThunk(
         const res = await axios.post(`${BASE_URI}api/admin/login`, initialData)
         console.log(res,"axiiiiiios")
         //data axios, backend 2 data
-        return res.data.data.data.data
+        return res.data
       } catch (err) {
         // console.log(err,"errrxxx,,,,axiiiiiios")
         return thunkAPI.rejectWithValue(err)
@@ -64,7 +79,8 @@ export const signup = createAsyncThunk(
   export const signout = createAsyncThunk(
     'auth/signout',
     async () => {
-      localStorage.removeItem("atoken")
+      localStorage.clear()
+      // localStorage.removeItem("atoken")
     //   localStorage.removeItem('_i')
     //   localStorage.removeItem('_n')
     //   localStorage.removeItem('_e')
@@ -87,9 +103,14 @@ const authSlice =createSlice({
     // },
     extraReducers: (builder) => {
         builder.addCase(signup.fulfilled, (state, action) => {
-            state.name=action.payload.name,
-            state.mobile=action.payload.mobile,
-            state.email=action.payload.email
+          state.userId = '';
+          state.name = '';
+          state.mobile = '';
+        })
+        .addCase(edituser.fulfilled, (state, action) => {
+          state.userId = '';
+          state.name = '';
+          state.mobile = '';
         })
         .addCase(signin.fulfilled,(state,action)=> {
           console.log(action.payload,"addcase")

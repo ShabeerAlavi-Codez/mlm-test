@@ -15,6 +15,8 @@ export default function Dashboard() {
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
+    const storedValue = localStorage.getItem("asup"); 
+    const tile=localStorage.getItem("_d");
     const handleLogout = async () => {
         try {
           await dispatch(signout()); // Dispatch the signout action
@@ -55,6 +57,8 @@ export default function Dashboard() {
 
         <div className="container mx-auto mt-12">
             <div className="grid grid-cols-1 gap-5 mb-6 lg:grid-cols-3 sm:gap-4">
+            {storedValue !== null && (
+                <>
                 <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
                     <div className="text-sm font-medium text-gray-500 truncate">
                         Total Node users
@@ -112,6 +116,85 @@ export default function Dashboard() {
                     {apidata.Inactive}
                     </div>
                 </div>
+                </>
+            )}
+              {storedValue == null && (
+                <>
+                         {tile&&tile.includes("d1")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                      Total Node users
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-gray-900">
+                      
+                     <p> {apidata.nodeUser}</p>
+                  </div>
+              </div>
+                )}
+                {tile&&tile.includes("d2")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                  Ist Payment Pending
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-blue-900">
+                    {apidata.newJoin}
+                  </div>
+              </div>
+                )}
+                {tile&&tile.includes("d3")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                    Ist Payment Approval
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-green-900">
+                  {apidata.fapproval}
+                  </div>
+              </div>
+                )}
+                {tile&&tile.includes("d4")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                     IIst Payment for approval
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-green-900">
+                  {apidata.sapproval}
+                  </div>
+              </div>
+                )}
+                {tile&&tile.includes("d5")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                     IIst Payment Pending
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-green-900">
+                  {apidata.spending}
+                  </div>
+              </div>
+                )}
+                {tile&&tile.includes("d6")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                  Tasks Progressing /Active Users
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-lime-900">
+                  {apidata.active}
+                  </div>
+              </div>
+                )}
+                {tile&&tile.includes("d7")&&(
+                  <div className="px-3 sm:px-3 py-4 sm:py-3 bg-white rounded-lg shadow-lg">
+                  <div className="text-sm font-medium text-gray-500 truncate">
+                  Tasks Completed Users
+                  </div>
+                  <div className="mt-1 text-3xl font-semibold text-red-900">
+                  {apidata.Inactive}
+                  </div>
+              </div>
+                )}
+                </>
+              )}
+       
+              
             </div>
         </div>
         

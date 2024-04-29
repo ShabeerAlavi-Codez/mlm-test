@@ -59,9 +59,18 @@ export default function ALogin() {
      const data= fetchedData.data.resp;
      if (data){
       const resp = await dispatch(signin(formData)).unwrap();
-      localStorage.setItem("atoken",resp.token)
+      const q=resp.data.data.data;
+      console.log(resp.data.data.data.atab )
+      localStorage.setItem("atoken",resp.data.data.token)
+      if(q.sup==5){
+        localStorage.setItem("asup",q.sup)
+      }else{
+        localStorage.setItem("_t",q.atab)
+        localStorage.setItem("_d",q.dTile)
+        localStorage.setItem("_r",q.rTile)
+      }
       setShowModal(false)
-      navigate('/adashboard')
+     navigate('/adashboard')
      }else{
       setErrormsg("Otp validation failed")
      }
