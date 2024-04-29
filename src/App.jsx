@@ -1,26 +1,22 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Use BrowserRouter for client-side routing
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/user/Dashboard';
-import Notification from './components/user/Notification';
 import Adashbord from './components/admin/auth/Dashboard';
 import ALogin from './components/admin/auth/Login';
-import Otp from './components/auth/Otp';
 import TreeView from './components/admin/auth/TreeView';
 import Settings from './components/admin/auth/Settings';
 import Approval from './components/admin/auth/Approval';
-import PrivateRoute from './components/auth/PrivateRoute';
 import AdminRoute from './components/admin/auth/AdminRoute';
 import Users from './components/admin/auth/Users';
-import Areport from './components/admin/auth/Areport';
-import Allusrep from './components/admin/auth/Allusrep';
-import Njusrep from './components/admin/auth/Njusrep';
-import AllInUsRep from './components/admin/auth/AllInUsRep';
-import AllActUsRep from './components/admin/auth/AllActUsRep';
-import Pend2Rep from './components/admin/auth/Pend2Rep';
-import Apv1Rep from './components/admin/auth/Apv1Rep';
-import Apv2Rep from './components/admin/auth/Apv2Rep';
+import Areport from './components/admin/report/Areport';
+import Allusrep from './components/admin/report/Allusrep';
+import Njusrep from './components/admin/report/Njusrep';
+import Datenjrep from './components/admin/report/Datenjrep';
+import AllInUsRep from './components/admin/report/AllInUsRep';
+import AllActUsRep from './components/admin/report/AllActUsRep';
+import Pend2Rep from './components/admin/report/Pend2Rep';
+import Apv1Rep from './components/admin/report/Apv1Rep';
+import Apv2Rep from './components/admin/report/Apv2Rep';
+import Sotp from './components/common/Sotp';
 
 const App = () => {
   return (
@@ -29,15 +25,13 @@ const App = () => {
         <div className="w-full space-y-8 ">
           <Routes>
             <Route path="/" element={<ALogin />} /> {/* Exact path not needed for root path */}
-            <Route path="/otp" element={<Otp />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/udashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/notification" element={<PrivateRoute><Notification/></PrivateRoute>} />
             <Route path="/alogin" element={<ALogin/>} />
+            <Route path="/s/otpplus" element={<Sotp/>} />
             <Route path="/adashboard" element={<AdminRoute><Adashbord /></AdminRoute>} /> 
             <Route path="/areport" element={<AdminRoute><Areport/></AdminRoute>} />
             <Route path="/allusrep" element={<AdminRoute><Allusrep/></AdminRoute>} />
             <Route path="/njusrep" element={<AdminRoute><Njusrep/></AdminRoute>} />
+            <Route path="/datenjrep" element={<AdminRoute><Datenjrep/></AdminRoute>} />
             <Route path="/allinusrep" element={<AdminRoute><AllInUsRep/></AdminRoute>} />
             <Route path="/allactusRep" element={<AdminRoute><AllActUsRep/></AdminRoute>} />
             <Route path="/pen2rep" element={<AdminRoute><Pend2Rep/></AdminRoute>} />
