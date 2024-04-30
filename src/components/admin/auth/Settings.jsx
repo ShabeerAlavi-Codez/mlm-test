@@ -10,10 +10,35 @@ export default function Settings() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [cmpUpiId,setCmpUpiId]=useState('');
+    const [cmpAmt,setCmpAmt]=useState('');
     const [isToggled, setIsToggled] = useState(false);
 
-    const handleToggle = () => {
+    const handleToggle = async(event) => {
       setIsToggled(!isToggled);
+      if( event.target.checked==true){
+        setIsLoading(true)
+           const formData = new FormData();
+            formData.append('zone', false);
+           const response = await fetch(`${BASE_URI}api/admin/cmpzone`, {
+            method: 'POST',
+            body: formData
+          });
+           const fetchedData = await response.json();
+           setIsLoading(false)
+           window.location.reload()
+
+      }else{
+        setIsLoading(true)
+        const formData = new FormData();
+         formData.append('zone', true);
+        const response = await fetch(`${BASE_URI}api/admin/cmpzone`, {
+         method: 'POST',
+         body: formData
+       });
+        const fetchedData = await response.json();
+        setIsLoading(false)
+        window.location.reload()
+      }
     };
     const handeleUpiUpdate= async(e)=>{
      
@@ -27,7 +52,30 @@ export default function Settings() {
             body: formData
           });
            const fetchedData = await response.json();
-           navigate('/settings')
+          window.location.reload()
+        } catch (err) {
+          console.log(err,"errrrr")
+          //setSigninRequestStatus('idle')
+          console.error(err.response.data.errors)
+         // setErrormsg(err.response.data.errors)
+        } finally {
+          setIsLoading(false)
+        }
+
+    }
+    const handeleAmtUpdate= async(e)=>{
+     
+      e.preventDefault();
+        try {
+           setIsLoading(true)
+           const formData = new FormData();
+            formData.append('cmpAmt', cmpAmt);
+           const response = await fetch(`${BASE_URI}api/admin/cmpamtupdate`, {
+            method: 'POST',
+            body: formData
+          });
+           const fetchedData = await response.json();
+           window.location.reload()
         } catch (err) {
           console.log(err,"errrrr")
           //setSigninRequestStatus('idle')
@@ -47,6 +95,8 @@ export default function Settings() {
            // console.log("333fetchedData3333##",fetchedData.data);
             setData(fetchedData.data);
             setCmpUpiId(fetchedData.data[0].UpiId)
+            setCmpAmt(fetchedData.data[0].Amt)
+            setIsToggled(fetchedData.data[0].zone)
           } catch (error) {
             console.error('Error fetching data:', error); // Handle errors gracefully
           } finally {
@@ -59,6 +109,9 @@ export default function Settings() {
 
       const onchangeUpi=(e)=>{
         setCmpUpiId(e.target.value)
+      }
+      const onchangeAmt=(e)=>{
+        setCmpAmt(e.target.value)
       }
     return (
         <div className="flex">
@@ -80,12 +133,18 @@ export default function Settings() {
 
                 <button type="submit" className='text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ml-2"'> update UpiId</button>
                 </form>
+               
+                <form onSubmit={ handeleAmtUpdate}>
+                <label for="name" className="block mb-2 font-bold text-gray-600">Ist Payment Amount</label>
+                 <input type="text" id="name" value={cmpAmt} onChange={onchangeAmt} name="username" placeholder="Amount" className="border border-gray-300 shadow p-3 w-600 rounded mb-"/>
+                 <button type="submit" className='text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ml-2"'> update Amount</button>
+                </form>
                 <label className="relative flex justify-between items-center p-2 text-xl">
         Stop website
         <input
           type="checkbox"
           className="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md"
-          checked={isToggled}
+          checked={!isToggled}
           onChange={handleToggle}
         />
         <span

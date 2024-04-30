@@ -12,6 +12,11 @@ export default function SideBar() {
     const handleLogout = async () => {
         try {
           await dispatch(signout()); // Dispatch the signout action
+          localStorage.removeItem("atoken")
+            localStorage.removeItem('asup')
+            localStorage.removeItem('_t')
+            localStorage.removeItem('_d')
+            localStorage.removeItem('_r')
           navigate('/'); // Navigate to the login route after successful logout
         } catch (error) {
           console.error('Error during logout:', error);

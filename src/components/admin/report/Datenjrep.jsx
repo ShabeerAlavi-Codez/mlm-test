@@ -4,6 +4,7 @@ import { BASE_URI} from '../../../../config/keys-dev';
 import FilterComponent from '../auth/FilterComponent';
 import SideBar from '../auth/SideBar';
 import DatePicker from "react-datepicker";
+import FsLightbox from "fslightbox-react";
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -13,8 +14,16 @@ export default function Datenjrep() {
     const [isLoading, setIsLoading] = useState(false);
     const [fromDate, setFromDate] = useState(new Date());
     const [isChange,setChange]=useState(false);
+    const [toggler, setToggler] = useState({});
     const [toDate, setToDate] = useState(new Date());
 
+    const toggleItem = (itemId,st) => {
+      console.log(toggler,"kkkk")
+      setToggler(prevState => ({
+        ...prevState,
+        [itemId]: st // Toggle the state of the item
+      }));
+    };
     const handleDateChange = (date) => {
       setFromDate(date);
       setChange(!isChange)
@@ -63,26 +72,39 @@ useEffect(() => {
             sortable: true,
         },
         {
-            name: 'firstPaymentStatus',
-            selector: row => row.firstPaymentStatus,
-            sortable: true,
-        },
-        {
-            name: 'secondPaymentStatus',
-            selector: row => row.secondPaymentStatus,
-            sortable: true,
-        }
+          name: 'image',
+          cell: (row,index) => (
+              <>
+              <button onClick={() => toggleItem(index,true)}>
+              <img
+                  src={`${BASE_URI}uploads/${row.userId}.png`}
+                  alt="User Image"
+                  style={{ width: '50px', height: '50px', cursor: 'pointer' }}
+                 // onClick={() => handleImageClick(row.userId)}
+              />
+              </button>
+              <FsLightbox
+      toggler={toggler}
+      sources={[
+        `${BASE_URI}uploads/${row.userId}.png`,
+      ]}
+    />
+              </>
+             
+          ),
+      },
+       
      
     ];
     
-    const ExpandedComponent = ( apidata ) =>{ 
+    const ExpandedComponent = ( apiidata ) =>{ 
       return(
           <>
           <tr>
                <th>UpiId</th>
           </tr>
          <tr>
-          <td>{apidata.data.UpiId}</td>
+          <td>{apiidata.data.upiId}</td>
          </tr>
          </>
           

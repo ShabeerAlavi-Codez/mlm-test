@@ -80,10 +80,11 @@ export const signup = createAsyncThunk(
     'auth/signout',
     async () => {
       localStorage.clear()
-      // localStorage.removeItem("atoken")
-    //   localStorage.removeItem('_i')
-    //   localStorage.removeItem('_n')
-    //   localStorage.removeItem('_e')
+      localStorage.removeItem("atoken")
+      localStorage.removeItem('asup')
+      localStorage.removeItem('_t')
+      localStorage.removeItem('_d')
+      localStorage.removeItem('_r')
     //   localStorage.removeItem('_m')
       return null;  // Indicate successful logout (you can return any data here)
     }
